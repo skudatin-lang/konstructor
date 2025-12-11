@@ -50,16 +50,6 @@
       "availableFor": ["ready", "individual"],
       "noDiscount": false
     }
-    {
-      "id": "action",
-      "name": "экшен стиль",
-      "gender": "male",
-      "description": "Модели в популярном аниме стиле",
-      "imageUrl": "https://via.placeholder.com/200x200/4facfe/00f2fe?text=Anime+Male",
-      "basePrice": 7500,
-      "availableFor": ["ready", "individual"],
-      "noDiscount": false
-    }
   ],
   "female": [
     {
