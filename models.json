@@ -1,114 +1,138 @@
 {
-  "full_neutral_man": {
-    "name": "Мужчина полный рост, нейтральный стиль",
-    "price": 9100,
-    "type": "full",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1Ar0QgR-prDCPzE-xDoneLIHvnMQH77aN&sz=w1000",
-    "availableFor": ["ready", "individual"]
+  "full": {
+    "male": [
+      {
+        "id": "full_neutral_man",
+        "name": "Мужчина полный рост, нейтральный стиль",
+        "category": "full",
+        "gender": "male",
+        "style": "neutral",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1Ar0QgR-prDCPzE-xDoneLIHvnMQH77aN&sz=w1000"
+      },
+      {
+        "id": "full_business_man",
+        "name": "Мужчина полный рост, деловой стиль",
+        "category": "full",
+        "gender": "male",
+        "style": "business",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1CVhANoz6tRhnFwK0rf5Opv5jdzQj4qT3&sz=w1000"
+      }
+    ],
+    "female": [
+      {
+        "id": "full_neutral_woman",
+        "name": "Девушка полный рост, нейтральный стиль",
+        "category": "full",
+        "gender": "female",
+        "style": "neutral",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1QWtuqbRj8R6WuCMiqh6Y-k7z8SD_gyqw&sz=w1000"
+      },
+      {
+        "id": "full_business_woman",
+        "name": "Девушка полный рост, деловой стиль",
+        "category": "full",
+        "gender": "female",
+        "style": "business",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1WWWusHzpLJErrQwRL6dC1mT8mOZa6y-_&sz=w1000"
+      }
+    ]
   },
-  "full_business_man": {
-    "name": "Мужчина полный рост, деловой стиль",
-    "price": 9100,
-    "type": "full",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1CVhANoz6tRhnFwK0rf5Opv5jdzQj4qT3&sz=w1000",
-    "availableFor": ["ready", "individual"]
+  "mini": {
+    "male": [
+      {
+        "id": "mini_free_man",
+        "name": "Мужчина мини фигурка, свободный стиль",
+        "category": "mini",
+        "gender": "male",
+        "style": "free",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1ZLk00m_viSvxehM-Q-kFlcU2B4xnDfAX&sz=w1000"
+      },
+      {
+        "id": "mini_business_man",
+        "name": "Мужчина мини фигурка, деловой стиль",
+        "category": "mini",
+        "gender": "male",
+        "style": "business",
+        "imageUrl": "https://drive.google.com/thumbnail?id=18HVz_-tkG6vJBGtGXIkFu4JBnRekDkL5&sz=w1000"
+      }
+    ],
+    "female": [
+      {
+        "id": "mini_free_woman",
+        "name": "Девушка мини фигурка, свободный стиль",
+        "category": "mini",
+        "gender": "female",
+        "style": "free",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1S8VMcrxyMGximaOimkHODn_lNfKzG1c-&sz=w1000"
+      },
+      {
+        "id": "mini_business_woman",
+        "name": "Девушка мини фигурка, деловой стиль",
+        "category": "mini",
+        "gender": "female",
+        "style": "business",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1M-jxV5gHearmahCp8Bzlo6nPYElGTb3I&sz=w1000"
+      }
+    ]
   },
-  "mini_free_man": {
-    "name": "Мужчина мини фигурка, свободный стиль",
-    "price": 9100,
-    "type": "mini",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1ZLk00m_viSvxehM-Q-kFlcU2B4xnDfAX&sz=w1000",
-    "availableFor": ["ready", "individual"]
+  "bust": {
+    "male": [
+      {
+        "id": "bust_modern_man",
+        "name": "Мужчина бюст модерн",
+        "category": "bust",
+        "gender": "male",
+        "style": "modern",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1l5GFi7U-4-M2djgb8nSQeL9Uvkienlgj&sz=w1000"
+      },
+      {
+        "id": "bust_classic_man",
+        "name": "Мужчина бюст классика",
+        "category": "bust",
+        "gender": "male",
+        "style": "classic",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1tS0bNd4lP7u_wmrZL5yJVMELGkGlhq78&sz=w1000"
+      }
+    ],
+    "female": [
+      {
+        "id": "bust_modern_woman",
+        "name": "Девушка бюст модерн",
+        "category": "bust",
+        "gender": "female",
+        "style": "modern",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1L-RHTWzyadKC3tl5WFsraczH-A3USW7U&sz=w1000"
+      },
+      {
+        "id": "bust_classic_woman",
+        "name": "Девушка бюст классика",
+        "category": "bust",
+        "gender": "female",
+        "style": "classic",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1CAv63ANI2LGqbVvcoek2-cEM9J2dCl5v&sz=w1000"
+      }
+    ]
   },
-  "mini_business_man": {
-    "name": "Мужчина мини фигурка, деловой стиль",
-    "price": 9100,
-    "type": "mini",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=18HVz_-tkG6vJBGtGXIkFu4JBnRekDkL5&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "bust_modern_man": {
-    "name": "Мужчина бюст модерн",
-    "price": 6300,
-    "type": "bust",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1l5GFi7U-4-M2djgb8nSQeL9Uvkienlgj&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "bust_classic_man": {
-    "name": "Мужчина бюст классика",
-    "price": 6300,
-    "type": "bust",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1tS0bNd4lP7u_wmrZL5yJVMELGkGlhq78&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "bust_head_man": {
-    "name": "Мужчина бюст голова",
-    "price": 4200,
-    "type": "bust_head",
-    "gender": "male",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1qEFkgFPEX1eZHyVKxiobdEPtuQvW3WhD&sz=w1000",
-    "availableFor": ["ready"]
-  },
-  "full_neutral_woman": {
-    "name": "Девушка полный рост, нейтральный стиль",
-    "price": 9100,
-    "type": "full",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1QWtuqbRj8R6WuCMiqh6Y-k7z8SD_gyqw&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "full_business_woman": {
-    "name": "Девушка полный рост, деловой стиль",
-    "price": 9100,
-    "type": "full",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1WWWusHzpLJErrQwRL6dC1mT8mOZa6y-_&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "mini_free_woman": {
-    "name": "Девушка мини фигурка, свободный стиль",
-    "price": 9100,
-    "type": "mini",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1S8VMcrxyMGximaOimkHODn_lNfKzG1c-&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "mini_business_woman": {
-    "name": "Девушка мини фигурка, деловой стиль",
-    "price": 9100,
-    "type": "mini",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1M-jxV5gHearmahCp8Bzlo6nPYElGTb3I&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "bust_modern_woman": {
-    "name": "Девушка бюст модерн",
-    "price": 7000,
-    "type": "bust",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1L-RHTWzyadKC3tl5WFsraczH-A3USW7U&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "bust_classic_woman": {
-    "name": "Девушка бюст классика",
-    "price": 7000,
-    "type": "bust",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1CAv63ANI2LGqbVvcoek2-cEM9J2dCl5v&sz=w1000",
-    "availableFor": ["ready", "individual"]
-  },
-  "bust_head_woman": {
-    "name": "Девушка бюст голова",
-    "price": 4200,
-    "type": "bust_head",
-    "gender": "female",
-    "imageUrl": "https://drive.google.com/thumbnail?id=1JlZEGsBsl8I0HTgWXfaW4RvSAVR0ccZE&sz=w1000",
-    "availableFor": ["ready"]
+  "head": {
+    "male": [
+      {
+        "id": "bust_head_man",
+        "name": "Мужчина бюст голова",
+        "category": "head",
+        "gender": "male",
+        "style": "head",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1qEFkgFPEX1eZHyVKxiobdEPtuQvW3WhD&sz=w1000"
+      }
+    ],
+    "female": [
+      {
+        "id": "bust_head_woman",
+        "name": "Девушка бюст голова",
+        "category": "head",
+        "gender": "female",
+        "style": "head",
+        "imageUrl": "https://drive.google.com/thumbnail?id=1JlZEGsBsl8I0HTgWXfaW4RvSAVR0ccZE&sz=w1000"
+      }
+    ]
   }
 }
