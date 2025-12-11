@@ -116,8 +116,8 @@
   "head": {
     "male": [
       {
-        "id": "bust_head_man",
-        "name": "Мужчина бюст голова",
+        "id": "budget_head_man",
+        "name": "Мужская голова (бюджет)",
         "category": "head",
         "gender": "male",
         "style": "head",
@@ -126,8 +126,8 @@
     ],
     "female": [
       {
-        "id": "bust_head_woman",
-        "name": "Девушка бюст голова",
+        "id": "budget_head_woman",
+        "name": "Женская голова (бюджет)",
         "category": "head",
         "gender": "female",
         "style": "head",
