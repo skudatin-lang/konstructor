@@ -39,16 +39,6 @@
       "basePrice": 990,
       "availableFor": ["ready"],
       "noDiscount": true
-    },
-    {
-      "id": "vampire",  // НОВАЯ КАТЕГОРИЯ
-      "name": "Вампир",
-      "gender": "male",
-      "description": "Фентази воплощение",
-      "imageUrl": "https://...",
-      "basePrice": 12000,
-      "availableFor": ["ready", "individual"],
-      "noDiscount": false
     }
   ],
   "female": [
