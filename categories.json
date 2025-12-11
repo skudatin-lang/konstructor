@@ -4,7 +4,7 @@
       "id": "full",
       "name": "Полный рост",
       "gender": "male",
-      "description": "Детализированная модель в полный рост для эффектных подарков и коллекций",
+      "description": "Детализированная модель в полный рост с проработкой всех элементов одежды и аксессуаров",
       "imageUrl": "https://drive.google.com/thumbnail?id=1Ar0QgR-prDCPzE-xDoneLIHvnMQH77aN&sz=w1000",
       "basePrice": 9100,
       "availableFor": ["ready", "individual"]
@@ -13,7 +13,7 @@
       "id": "mini",
       "name": "Мини фигурка",
       "gender": "male",
-      "description": "Компактная мини-фигурка для рабочего стола или витрины",
+      "description": "Компактная версия с сохранением всех основных деталей и пропорций",
       "imageUrl": "https://drive.google.com/thumbnail?id=1ZLk00m_viSvxehM-Q-kFlcU2B4xnDfAX&sz=w1000",
       "basePrice": 9100,
       "availableFor": ["ready", "individual"]
@@ -22,7 +22,7 @@
       "id": "bust",
       "name": "Бюст",
       "gender": "male",
-      "description": "Скульптурный бюст по грудь для классического оформления интерьера",
+      "description": "Художественное изображение по грудь с акцентом на черты лица и детали",
       "imageUrl": "https://drive.google.com/thumbnail?id=1l5GFi7U-4-M2djgb8nSQeL9Uvkienlgj&sz=w1000",
       "basePrice": 6300,
       "availableFor": ["ready", "individual"]
@@ -31,9 +31,9 @@
       "id": "head",
       "name": "Модели от 990₽",
       "gender": "male",
-      "description": "Бюджетные модели головы с быстрым сроком изготовления",
+      "description": "Бюст голова с детальной проработкой черт лица и выражением",
       "imageUrl": "https://drive.google.com/thumbnail?id=1qEFkgFPEX1eZHyVKxiobdEPtuQvW3WhD&sz=w1000",
-      "basePrice": 4200,
+      "basePrice": 990,
       "availableFor": ["ready"]
     }
   ],
@@ -42,7 +42,7 @@
       "id": "full",
       "name": "Полный рост",
       "gender": "female",
-      "description": "Детализированная модель в полный рост для эффектных подарков и коллекций",
+      "description": "Детализированная модель в полный рост с проработкой всех элементов одежды и аксессуаров",
       "imageUrl": "https://drive.google.com/thumbnail?id=1QWtuqbRj8R6WuCMiqh6Y-k7z8SD_gyqw&sz=w1000",
       "basePrice": 9100,
       "availableFor": ["ready", "individual"]
@@ -51,7 +51,7 @@
       "id": "mini",
       "name": "Мини фигурка",
       "gender": "female",
-      "description": "Компактная мини-фигурка для рабочего стола или витрины",
+      "description": "Компактная версия с сохранением всех основных деталей и пропорций",
       "imageUrl": "https://drive.google.com/thumbnail?id=1S8VMcrxyMGximaOimkHODn_lNfKzG1c-&sz=w1000",
       "basePrice": 9100,
       "availableFor": ["ready", "individual"]
@@ -60,7 +60,7 @@
       "id": "bust",
       "name": "Бюст",
       "gender": "female",
-      "description": "Скульптурный бюст по грудь для классического оформления интерьера",
+      "description": "Художественное изображение по грудь с акцентом на черты лица и детали",
       "imageUrl": "https://drive.google.com/thumbnail?id=1L-RHTWzyadKC3tl5WFsraczH-A3USW7U&sz=w1000",
       "basePrice": 7000,
       "availableFor": ["ready", "individual"]
@@ -69,9 +69,9 @@
       "id": "head",
       "name": "Модели от 990₽",
       "gender": "female",
-      "description": "Бюджетные модели головы с быстрым сроком изготовления",
+      "description": "Бюст голова с детальной проработкой черт лица и выражением",
       "imageUrl": "https://drive.google.com/thumbnail?id=1JlZEGsBsl8I0HTgWXfaW4RvSAVR0ccZE&sz=w1000",
-      "basePrice": 4200,
+      "basePrice": 990,
       "availableFor": ["ready"]
     }
   ]
