@@ -4,37 +4,41 @@
       "id": "full",
       "name": "Полный рост",
       "gender": "male",
-      "description": "Полноразмерная фигура в выбранном стиле",
-      "imageUrl": "https://drive.google.com/thumbnail?id=1WDbjthBn9g8q9TT_J_3pX16uXeJjKgpI&sz=w1000",
+      "description": "Модель в полный рост, подходит для любых случаев",
+      "imageUrl": "https://drive.google.com/thumbnail?id=1WDbjthBn9g8q9TT_J_3pX16uXeJjKgpI&sz=w400",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "discount": true
     },
     {
       "id": "mini",
       "name": "Мини фигурка",
       "gender": "male",
-      "description": "Миниатюрная версия вашей модели",
-      "imageUrl": "https://drive.google.com/thumbnail?id=1q3A7ASPUYwpgOEnryFPIMFWVcXXfHZOi&sz=w1000",
+      "description": "Миниатюрная версия модели",
+      "imageUrl": "https://drive.google.com/thumbnail?id=1q3A7ASPUYwpgOEnryFPIMFWVcXXfHZOi&sz=w400",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "discount": true
     },
     {
       "id": "bust",
       "name": "Бюст",
       "gender": "male",
-      "description": "Скульптурный бюст по грудь",
-      "imageUrl": "https://drive.google.com/thumbnail?id=1DPECnYcTiHLNWse6Dn0xErsTHCN0KX2J&sz=w1000",
+      "description": "Скульптурное изображение по грудь",
+      "imageUrl": "https://drive.google.com/thumbnail?id=1DPECnYcTiHLNWse6Dn0xErsTHCN0KX2J&sz=w400",
       "basePrice": 6300,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "discount": true
     },
     {
       "id": "head",
-      "name": "модели от 990₽",
+      "name": "Модели от 990₽",
       "gender": "male",
-      "description": "Детализированная голова для коллекции",
-      "imageUrl": "https://drive.google.com/thumbnail?id=1C0QwldXvxJVh9E6GpyUBRIMzJW9bI8g1&sz=w1000",
+      "description": "Детализированное изображение головы",
+      "imageUrl": "https://drive.google.com/thumbnail?id=1C0QwldXvxJVh9E6GpyUBRIMzJW9bI8g1&sz=w400",
       "basePrice": 990,
-      "availableFor": ["ready"]
+      "availableFor": ["ready"],
+      "discount": false
     }
   ],
   "female": [
@@ -42,37 +46,41 @@
       "id": "full",
       "name": "Полный рост",
       "gender": "female",
-      "description": "Полноразмерная фигура в выбранном стиле",
-      "imageUrl": "https://drive.google.com/thumbnail?id=14IEAhwLg2W-NiQGyPnkjHhlKIdkfAnVY&sz=w1000",
+      "description": "Модель в полный рост, подходит для любых случаев",
+      "imageUrl": "https://drive.google.com/thumbnail?id=14IEAhwLg2W-NiQGyPnkjHhlKIdkfAnVY&sz=w400",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "discount": true
     },
     {
       "id": "mini",
       "name": "Мини фигурка",
       "gender": "female",
-      "description": "Миниатюрная версия вашей модели",
-      "imageUrl": "https://drive.google.com/thumbnail?id=1LluYmic2waDLFJZc130aCB1yePghB6O5&sz=w1000",
+      "description": "Миниатюрная версия модели",
+      "imageUrl": "https://drive.google.com/thumbnail?id=1LluYmic2waDLFJZc130aCB1yePghB6O5&sz=w400",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "discount": true
     },
     {
       "id": "bust",
       "name": "Бюст",
       "gender": "female",
-      "description": "Скульптурный бюст по грудь",
-      "imageUrl": "https://drive.google.com/thumbnail?id=16o_ubVnqjm5bp_2zuA_SX8vWtG_tVPHs&sz=w1000",
+      "description": "Скульптурное изображение по грудь",
+      "imageUrl": "https://drive.google.com/thumbnail?id=16o_ubVnqjm5bp_2zuA_SX8vWtG_tVPHs&sz=w400",
       "basePrice": 7000,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "discount": true
     },
     {
       "id": "head",
-      "name": "модели от 990₽",
+      "name": "Модели от 990₽",
       "gender": "female",
-      "description": "Детализированная голова для коллекции",
-      "imageUrl": "https://drive.google.com/thumbnail?id=1JDAv-pKwYBd5I5CFmg-fpY3H_hEciADy&sz=w1000",
+      "description": "Детализированное изображение головы",
+      "imageUrl": "https://drive.google.com/thumbnail?id=1JDAv-pKwYBd5I5CFmg-fpY3H_hEciADy&sz=w400",
       "basePrice": 990,
-      "availableFor": ["ready"]
+      "availableFor": ["ready"],
+      "discount": false
     }
   ]
 }

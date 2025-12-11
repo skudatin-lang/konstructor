@@ -7,7 +7,7 @@
         "category": "full",
         "gender": "male",
         "style": "neutral",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1Ar0QgR-prDCPzE-xDoneLIHvnMQH77aN&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1WDbjthBn9g8q9TT_J_3pX16uXeJjKgpI&sz=w400"
       },
       {
         "id": "full_business_man",
@@ -15,7 +15,7 @@
         "category": "full",
         "gender": "male",
         "style": "business",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1CVhANoz6tRhnFwK0rf5Opv5jdzQj4qT3&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1iPFV3Ab-SbEeZveu4SWiDh6e0gS2D0Cc&sz=w400"
       }
     ],
     "female": [
@@ -25,7 +25,7 @@
         "category": "full",
         "gender": "female",
         "style": "neutral",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1QWtuqbRj8R6WuCMiqh6Y-k7z8SD_gyqw&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=14IEAhwLg2W-NiQGyPnkjHhlKIdkfAnVY&sz=w400"
       },
       {
         "id": "full_business_woman",
@@ -33,7 +33,7 @@
         "category": "full",
         "gender": "female",
         "style": "business",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1WWWusHzpLJErrQwRL6dC1mT8mOZa6y-_&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1MezKL66im0b8nSBc-NrJCteUrcl0eu25&sz=w400"
       }
     ]
   },
@@ -45,7 +45,7 @@
         "category": "mini",
         "gender": "male",
         "style": "free",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1ZLk00m_viSvxehM-Q-kFlcU2B4xnDfAX&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1q3A7ASPUYwpgOEnryFPIMFWVcXXfHZOi&sz=w400"
       },
       {
         "id": "mini_business_man",
@@ -53,7 +53,7 @@
         "category": "mini",
         "gender": "male",
         "style": "business",
-        "imageUrl": "https://drive.google.com/thumbnail?id=18HVz_-tkG6vJBGtGXIkFu4JBnRekDkL5&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=13WVbbolb_u124PTQ8oYqf2xGlStXu3bZ&sz=w400"
       }
     ],
     "female": [
@@ -63,7 +63,7 @@
         "category": "mini",
         "gender": "female",
         "style": "free",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1S8VMcrxyMGximaOimkHODn_lNfKzG1c-&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1LluYmic2waDLFJZc130aCB1yePghB6O5&sz=w400"
       },
       {
         "id": "mini_business_woman",
@@ -71,7 +71,7 @@
         "category": "mini",
         "gender": "female",
         "style": "business",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1M-jxV5gHearmahCp8Bzlo6nPYElGTb3I&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1MxYX8vV48DoQmNfEtRWxBTdlAvD207g9&sz=w400"
       }
     ]
   },
@@ -83,7 +83,7 @@
         "category": "bust",
         "gender": "male",
         "style": "modern",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1l5GFi7U-4-M2djgb8nSQeL9Uvkienlgj&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1DPECnYcTiHLNWse6Dn0xErsTHCN0KX2J&sz=w400"
       },
       {
         "id": "bust_classic_man",
@@ -91,7 +91,7 @@
         "category": "bust",
         "gender": "male",
         "style": "classic",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1tS0bNd4lP7u_wmrZL5yJVMELGkGlhq78&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1sVScQ7SqHJNcny3akoKdn3f-lWSllBZC&sz=w400"
       }
     ],
     "female": [
@@ -101,7 +101,7 @@
         "category": "bust",
         "gender": "female",
         "style": "modern",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1L-RHTWzyadKC3tl5WFsraczH-A3USW7U&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=16o_ubVnqjm5bp_2zuA_SX8vWtG_tVPHs&sz=w400"
       },
       {
         "id": "bust_classic_woman",
@@ -109,7 +109,7 @@
         "category": "bust",
         "gender": "female",
         "style": "classic",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1CAv63ANI2LGqbVvcoek2-cEM9J2dCl5v&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1qHJUy8ggcZrHSbHzwD70OGyU-ugsvuYV&sz=w400"
       }
     ]
   },
@@ -121,7 +121,7 @@
         "category": "head",
         "gender": "male",
         "style": "head",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1qEFkgFPEX1eZHyVKxiobdEPtuQvW3WhD&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1C0QwldXvxJVh9E6GpyUBRIMzJW9bI8g1&sz=w400"
       }
     ],
     "female": [
@@ -131,7 +131,7 @@
         "category": "head",
         "gender": "female",
         "style": "head",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1JlZEGsBsl8I0HTgWXfaW4RvSAVR0ccZE&sz=w1000"
+        "imageUrl": "https://drive.google.com/thumbnail?id=1JDAv-pKwYBd5I5CFmg-fpY3H_hEciADy&sz=w400"
       }
     ]
   }
