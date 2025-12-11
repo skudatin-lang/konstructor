@@ -7,7 +7,8 @@
       "description": "Модель в полный рост, подходит для любых случаев",
       "imageUrl": "https://drive.google.com/thumbnail?id=1Ar0QgR-prDCPzE-xDoneLIHvnMQH77aN&sz=w1000",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "displayPrice": "от 4 550₽"
     },
     {
       "id": "mini",
@@ -16,7 +17,8 @@
       "description": "Миниатюрная версия модели",
       "imageUrl": "https://drive.google.com/thumbnail?id=1ZLk00m_viSvxehM-Q-kFlcU2B4xnDfAX&sz=w1000",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "displayPrice": "от 4 550₽"
     },
     {
       "id": "bust",
@@ -25,16 +27,18 @@
       "description": "Скульптурное изображение по грудь",
       "imageUrl": "https://drive.google.com/thumbnail?id=1l5GFi7U-4-M2djgb8nSQeL9Uvkienlgj&sz=w1000",
       "basePrice": 6300,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "displayPrice": "от 3 150₽"
     },
     {
       "id": "head",
-      "name": "Голова",
+      "name": "от 990₽",
       "gender": "male",
       "description": "Детализированное изображение головы",
       "imageUrl": "https://drive.google.com/thumbnail?id=1qEFkgFPEX1eZHyVKxiobdEPtuQvW3WhD&sz=w1000",
       "basePrice": 4200,
-      "availableFor": ["ready"]
+      "availableFor": ["ready"],
+      "displayPrice": "от 2 100₽"
     }
   ],
   "female": [
@@ -45,7 +49,8 @@
       "description": "Модель в полный рост, подходит для любых случаев",
       "imageUrl": "https://drive.google.com/thumbnail?id=1QWtuqbRj8R6WuCMiqh6Y-k7z8SD_gyqw&sz=w1000",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "displayPrice": "от 4 550₽"
     },
     {
       "id": "mini",
@@ -54,7 +59,8 @@
       "description": "Миниатюрная версия модели",
       "imageUrl": "https://drive.google.com/thumbnail?id=1S8VMcrxyMGximaOimkHODn_lNfKzG1c-&sz=w1000",
       "basePrice": 9100,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "displayPrice": "от 4 550₽"
     },
     {
       "id": "bust",
@@ -63,16 +69,18 @@
       "description": "Скульптурное изображение по грудь",
       "imageUrl": "https://drive.google.com/thumbnail?id=1L-RHTWzyadKC3tl5WFsraczH-A3USW7U&sz=w1000",
       "basePrice": 7000,
-      "availableFor": ["ready", "individual"]
+      "availableFor": ["ready", "individual"],
+      "displayPrice": "от 3 500₽"
     },
     {
       "id": "head",
-      "name": "Голова",
+      "name": "от 990₽",
       "gender": "female",
       "description": "Детализированное изображение головы",
       "imageUrl": "https://drive.google.com/thumbnail?id=1JlZEGsBsl8I0HTgWXfaW4RvSAVR0ccZE&sz=w1000",
       "basePrice": 4200,
-      "availableFor": ["ready"]
+      "availableFor": ["ready"],
+      "displayPrice": "от 2 100₽"
     }
   ]
 }

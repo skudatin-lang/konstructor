@@ -142,7 +142,7 @@
         
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             margin: 20px 0;
         }
@@ -155,6 +155,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .category-card:hover {
@@ -169,7 +172,7 @@
         
         .category-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
@@ -197,34 +200,46 @@
         
         .category-info {
             padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .category-name {
-            font-weight: 600;
+            font-weight: 700;
             color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 20px;
+            margin-bottom: 10px;
+            font-size: 22px;
+            line-height: 1.3;
+            height: 56px; /* 2 строки */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
         
         .category-description {
             color: #7f8c8d;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.5;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            flex-grow: 1;
         }
         
         .category-price {
             font-weight: 700;
             color: #3498db;
-            font-size: 22px;
-            margin-bottom: 8px;
+            font-size: 24px;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
         
         .category-price .original {
-            font-size: 16px;
+            font-size: 18px;
             color: #95a5a6;
             text-decoration: line-through;
-            margin-right: 8px;
+            margin-right: 10px;
         }
         
         /* Модели (Экран 2.1) */
@@ -256,7 +271,7 @@
         
         .models-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin: 30px 0;
         }
@@ -269,6 +284,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
         
         .model-card:hover {
@@ -306,14 +324,18 @@
         
         .model-info {
             padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .model-name {
-            font-weight: 600;
+            font-weight: 700;
             color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 18px;
-            height: 54px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            line-height: 1.3;
+            height: 52px; /* 2 строки */
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -324,10 +346,48 @@
             display: inline-block;
             background: #ecf0f1;
             color: #7f8c8d;
-            padding: 4px 12px;
+            padding: 6px 12px;
             border-radius: 12px;
-            font-size: 12px;
-            margin-bottom: 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+        
+        /* Индивидуальная модель - нет выбора модели */
+        .individual-models-screen .screen-title {
+            margin-bottom: 20px;
+        }
+        
+        .individual-model-info {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .individual-model-image {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+        
+        .individual-model-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .individual-model-details {
+            font-size: 18px;
+            color: #2c3e50;
+            margin: 20px 0;
+            line-height: 1.6;
         }
         
         /* Загрузка фото */
@@ -363,11 +423,13 @@
         .upload-text {
             color: #5a6c7d;
             margin-bottom: 10px;
+            font-size: 18px;
         }
         
         .upload-hint {
             color: #95a5a6;
             font-size: 14px;
+            line-height: 1.5;
         }
         
         .photo-preview {
@@ -840,7 +902,8 @@
             
             .category-grid,
             .models-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
             }
             
             .option-group {
@@ -877,12 +940,16 @@
             
             .category-image,
             .model-image {
-                height: 180px;
+                height: 200px;
             }
             
             .models-screen .screen-title {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .individual-model-image {
+                height: 250px;
             }
         }
         
@@ -925,14 +992,10 @@
     </div>
     <div class="progress-step">
         <div class="step-circle">3</div>
-        <div class="step-label">Модель</div>
-    </div>
-    <div class="progress-step">
-        <div class="step-circle">4</div>
         <div class="step-label">Настройка</div>
     </div>
     <div class="progress-step">
-        <div class="step-circle">5</div>
+        <div class="step-circle">4</div>
         <div class="step-label">Заказ</div>
     </div>
 </div>
@@ -999,12 +1062,12 @@
             <i class="fas fa-arrow-left"></i> Назад
         </button>
         <button class="btn" onclick="goToModelsScreen()" id="next2" disabled>
-            <i class="fas fa-arrow-right"></i> Выбрать модель
+            <i class="fas fa-arrow-right"></i> Дальше
         </button>
     </div>
 </div>
 
-<!-- Экран 2.1: Выбор модели внутри категории -->
+<!-- Экран 2.1: Выбор модели внутри категории (только для готовой модели) -->
 <div id="step2_1" class="screen models-screen">
     <div class="screen-title">
         <button class="back-to-categories" onclick="backToCategories()">
@@ -1044,6 +1107,49 @@
             <i class="fas fa-arrow-left"></i> Назад
         </button>
         <button class="btn" onclick="nextStep(3)" id="next2_1" disabled>
+            <i class="fas fa-sliders-h"></i> Настроить проект
+        </button>
+    </div>
+</div>
+
+<!-- Экран 2.2: Для индивидуальной модели (без выбора модели) -->
+<div id="step2_2" class="screen individual-models-screen">
+    <div class="screen-title">Индивидуальная модель</div>
+    
+    <div class="individual-model-info">
+        <div class="individual-model-image" id="individualModelImage">
+            <!-- Изображение будет загружено динамически -->
+        </div>
+        <div class="individual-model-details" id="individualModelDetails">
+            <!-- Детали будут загружены динамически -->
+        </div>
+    </div>
+    
+    <div id="photoUploadSectionIndividual" style="display: block;">
+        <div class="photo-upload-section">
+            <div class="photo-upload-box" onclick="document.getElementById('photoInputIndividual').click()">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="upload-text">
+                    <strong>Загрузите фото для индивидуальной модели</strong>
+                </div>
+                <div class="upload-hint">
+                    Нажмите или перетащите файл сюда<br>
+                    Рекомендуется: JPG, PNG, до 5MB<br>
+                    <strong>Важно:</strong> Требуется чёткое фото в 3/4. При непригодном фото — возврат оплаты и расторжение договора.
+                </div>
+            </div>
+            <input type="file" id="photoInputIndividual" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+            <div id="photoPreviewIndividual" class="photo-preview"></div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin: 40px 0;">
+        <button class="btn btn-secondary" onclick="backToCategories()">
+            <i class="fas fa-arrow-left"></i> Назад
+        </button>
+        <button class="btn" onclick="nextStep(3)" id="next2_2">
             <i class="fas fa-sliders-h"></i> Настроить проект
         </button>
     </div>
@@ -1159,7 +1265,7 @@
                     <strong>Категория:</strong><br>
                     <span id="sumCategory">—</span>
                 </div>
-                <div>
+                <div id="sumModelContainer">
                     <strong>Модель:</strong><br>
                     <span id="sumModel">—</span>
                 </div>
@@ -1268,7 +1374,7 @@
             categoriesConfig = await categoriesResponse.json();
             console.log('Категории загружены:', categoriesConfig);
             
-            // Загружаем модели
+            // Загружаем модели (только для готовой модели)
             const modelsResponse = await fetch('models.json');
             if (!modelsResponse.ok) {
                 throw new Error(`HTTP error! status: ${modelsResponse.status}`);
@@ -1300,7 +1406,8 @@
                     "description": "Модель в полный рост, подходит для любых случаев",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1Ar0QgR-prDCPzE-xDoneLIHvnMQH77aN&sz=w1000",
                     "basePrice": 9100,
-                    "availableFor": ["ready", "individual"]
+                    "availableFor": ["ready", "individual"],
+                    "displayPrice": "от 4 550₽"
                 },
                 {
                     "id": "mini",
@@ -1309,7 +1416,8 @@
                     "description": "Миниатюрная версия модели",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1ZLk00m_viSvxehM-Q-kFlcU2B4xnDfAX&sz=w1000",
                     "basePrice": 9100,
-                    "availableFor": ["ready", "individual"]
+                    "availableFor": ["ready", "individual"],
+                    "displayPrice": "от 4 550₽"
                 },
                 {
                     "id": "bust",
@@ -1318,16 +1426,18 @@
                     "description": "Скульптурное изображение по грудь",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1l5GFi7U-4-M2djgb8nSQeL9Uvkienlgj&sz=w1000",
                     "basePrice": 6300,
-                    "availableFor": ["ready", "individual"]
+                    "availableFor": ["ready", "individual"],
+                    "displayPrice": "от 3 150₽"
                 },
                 {
                     "id": "head",
-                    "name": "Голова",
+                    "name": "от 990₽",
                     "gender": "male",
                     "description": "Детализированное изображение головы",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1qEFkgFPEX1eZHyVKxiobdEPtuQvW3WhD&sz=w1000",
                     "basePrice": 4200,
-                    "availableFor": ["ready"]
+                    "availableFor": ["ready"],
+                    "displayPrice": "от 2 100₽"
                 }
             ],
             "female": [
@@ -1338,7 +1448,8 @@
                     "description": "Модель в полный рост, подходит для любых случаев",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1QWtuqbRj8R6WuCMiqh6Y-k7z8SD_gyqw&sz=w1000",
                     "basePrice": 9100,
-                    "availableFor": ["ready", "individual"]
+                    "availableFor": ["ready", "individual"],
+                    "displayPrice": "от 4 550₽"
                 },
                 {
                     "id": "mini",
@@ -1347,7 +1458,8 @@
                     "description": "Миниатюрная версия модели",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1S8VMcrxyMGximaOimkHODn_lNfKzG1c-&sz=w1000",
                     "basePrice": 9100,
-                    "availableFor": ["ready", "individual"]
+                    "availableFor": ["ready", "individual"],
+                    "displayPrice": "от 4 550₽"
                 },
                 {
                     "id": "bust",
@@ -1356,16 +1468,18 @@
                     "description": "Скульптурное изображение по грудь",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1L-RHTWzyadKC3tl5WFsraczH-A3USW7U&sz=w1000",
                     "basePrice": 7000,
-                    "availableFor": ["ready", "individual"]
+                    "availableFor": ["ready", "individual"],
+                    "displayPrice": "от 3 500₽"
                 },
                 {
                     "id": "head",
-                    "name": "Голова",
+                    "name": "от 990₽",
                     "gender": "female",
                     "description": "Детализированное изображение головы",
                     "imageUrl": "https://drive.google.com/thumbnail?id=1JlZEGsBsl8I0HTgWXfaW4RvSAVR0ccZE&sz=w1000",
                     "basePrice": 4200,
-                    "availableFor": ["ready"]
+                    "availableFor": ["ready"],
+                    "displayPrice": "от 2 100₽"
                 }
             ]
         };
@@ -1531,11 +1645,6 @@
         const categoryModels = modelsConfig[state.selectedCategory] || {};
         const genderModels = categoryModels[state.selectedGender] || [];
         
-        // Для типа проекта "individual" исключаем голову
-        if (state.projectType === 'individual' && state.selectedCategory === 'head') {
-            return [];
-        }
-        
         return genderModels;
     }
 
@@ -1639,6 +1748,7 @@
     // Создание карточки категории
     function createCategoryCard(category, gender) {
         const price = getCategoryPrice(category.id, gender);
+        const displayPrice = category.displayPrice || (price.toLocaleString() + '₽');
         
         const div = document.createElement('div');
         div.className = 'category-card';
@@ -1656,8 +1766,8 @@
                 <div class="category-description">${category.description || ''}</div>
                 <div class="category-price">
                     ${state.projectType === 'ready' ? 
-                        `<span class="original">${category.basePrice} руб</span>` : ''}
-                    ${price} руб
+                        `<span class="original">${category.basePrice.toLocaleString()}₽</span>` : ''}
+                    ${displayPrice}
                 </div>
             </div>
         `;
@@ -1673,32 +1783,61 @@
             state.selectedGender = gender;
             state.selectedCategory = category.id;
             
-            // Активируем кнопку перехода к моделям
+            // Активируем кнопку перехода к следующему шагу
             document.getElementById('next2').disabled = false;
         };
         
         return div;
     }
 
-    // Переход к экрану выбора моделей
+    // Переход к следующему экрану после выбора категории
     function goToModelsScreen() {
         if (!state.selectedGender || !state.selectedCategory) {
             showNotification('Сначала выберите категорию', true);
             return;
         }
         
-        // Скрываем экран категорий
-        document.getElementById('step2').classList.remove('active');
-        
-        // Показываем экран моделей
-        document.getElementById('step2_1').classList.add('active');
-        
-        // Обновляем заголовок
-        const category = categoriesConfig[state.selectedGender].find(cat => cat.id === state.selectedCategory);
-        document.getElementById('modelsTitle').textContent = `Выберите модель: ${category?.name || ''}`;
-        
-        // Рендерим модели
-        renderModels();
+        // Если это индивидуальная модель - переходим на экран индивидуальной модели
+        if (state.projectType === 'individual') {
+            // Скрываем экран категорий
+            document.getElementById('step2').classList.remove('active');
+            
+            // Показываем экран индивидуальной модели
+            document.getElementById('step2_2').classList.add('active');
+            
+            // Загружаем изображение и детали категории
+            const category = categoriesConfig[state.selectedGender].find(cat => cat.id === state.selectedCategory);
+            if (category) {
+                document.getElementById('individualModelImage').innerHTML = `
+                    <img src="${category.imageUrl}" 
+                         alt="${category.name}"
+                         onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRjgiLz48dGV4dCB4PSI1MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9IjAuM2VtIj5DdXN0b208L3RleHQ+PC9zdmc+'>
+                `;
+                
+                const price = getCategoryPrice(category.id, state.selectedGender);
+                document.getElementById('individualModelDetails').innerHTML = `
+                    <strong>${category.name}</strong><br>
+                    ${category.description}<br>
+                    <strong>Стоимость: ${price.toLocaleString()} ₽</strong><br>
+                    <em>Индивидуальная модель создаётся с нуля по вашим фото</em>
+                `;
+            }
+        } 
+        // Если это готовая модель - переходим на экран выбора модели
+        else {
+            // Скрываем экран категорий
+            document.getElementById('step2').classList.remove('active');
+            
+            // Показываем экран моделей
+            document.getElementById('step2_1').classList.add('active');
+            
+            // Обновляем заголовок
+            const category = categoriesConfig[state.selectedGender].find(cat => cat.id === state.selectedCategory);
+            document.getElementById('modelsTitle').textContent = `Выберите модель: ${category?.name || ''}`;
+            
+            // Рендерим модели
+            renderModels();
+        }
         
         // Обновляем прогресс-бар
         updateProgressBar(3);
@@ -1709,8 +1848,9 @@
         // Сбрасываем выбранную модель
         state.selectedModel = null;
         
-        // Скрываем экран моделей
+        // Скрываем все экраны выбора моделей
         document.getElementById('step2_1').classList.remove('active');
+        document.getElementById('step2_2').classList.remove('active');
         
         // Показываем экран категорий
         document.getElementById('step2').classList.add('active');
@@ -1723,7 +1863,7 @@
         updateProgressBar(2);
     }
 
-    // Рендер моделей внутри категории
+    // Рендер моделей внутри категории (только для готовой модели)
     function renderModels() {
         const modelsGrid = document.getElementById('modelsGrid');
         modelsGrid.innerHTML = '';
@@ -1751,11 +1891,11 @@
                 <div class="model-info">
                     <div class="model-name">${model.name}</div>
                     <div class="model-style">
-                        ${model.style === 'neutral' ? 'Нейтральный' : 
-                          model.style === 'business' ? 'Деловой' : 
-                          model.style === 'free' ? 'Свободный' :
-                          model.style === 'modern' ? 'Модерн' :
-                          model.style === 'classic' ? 'Классика' : 'Стандарт'}
+                        ${model.style === 'neutral' ? 'Нейтральный стиль' : 
+                          model.style === 'business' ? 'Деловой стиль' : 
+                          model.style === 'free' ? 'Свободный стиль' :
+                          model.style === 'modern' ? 'Стиль модерн' :
+                          model.style === 'classic' ? 'Классический стиль' : 'Стандарт'}
                     </div>
                 </div>
             `;
@@ -1802,7 +1942,11 @@
         const reader = new FileReader();
         reader.onload = function(e) {
             state.uploadedPhoto = e.target.result;
-            const preview = document.getElementById('photoPreview');
+            
+            // Определяем, какой превью обновлять
+            const previewId = state.projectType === 'individual' ? 'photoPreviewIndividual' : 'photoPreview';
+            const preview = document.getElementById(previewId);
+            
             preview.innerHTML = `
                 <div style="margin-bottom: 15px; color: #2ecc71; font-weight: 600;">
                     <i class="fas fa-check-circle"></i> Фото успешно загружено
@@ -1820,8 +1964,12 @@
 
     function removePhoto() {
         state.uploadedPhoto = null;
-        document.getElementById('photoInput').value = '';
-        document.getElementById('photoPreview').innerHTML = '';
+        // Определяем, какой инпут очищать
+        const inputId = state.projectType === 'individual' ? 'photoInputIndividual' : 'photoInput';
+        const previewId = state.projectType === 'individual' ? 'photoPreviewIndividual' : 'photoPreview';
+        
+        document.getElementById(inputId).value = '';
+        document.getElementById(previewId).innerHTML = '';
     }
 
     // Настройка параметров
@@ -1982,11 +2130,11 @@
             updateProgressBar(2);
         } else if (step === 3) {
             document.getElementById('step3').classList.add('active');
-            updateProgressBar(4);
+            updateProgressBar(3);
         } else if (step === 4) {
             document.getElementById('step4').classList.add('active');
             updateSummary();
-            updateProgressBar(5);
+            updateProgressBar(4);
         }
     }
     
@@ -2003,8 +2151,14 @@
             renderCategories();
             updateProgressBar(2);
         } else if (step === 3) {
-            document.getElementById('step3').classList.add('active');
-            updateProgressBar(4);
+            // Определяем, на какой экран возвращаться
+            if (state.projectType === 'individual') {
+                document.getElementById('step2_2').classList.add('active');
+            } else {
+                document.getElementById('step2_1').classList.add('active');
+                renderModels();
+            }
+            updateProgressBar(3);
         }
     }
 
@@ -2020,11 +2174,21 @@
             'Готовая модель с лицом по фото (скидка 50%)';
         
         const category = categoriesConfig[state.selectedGender]?.find(cat => cat.id === state.selectedCategory);
-        const model = getAvailableModels().find(m => m.id === state.selectedModel);
         
         document.getElementById('sumType').textContent = typeName;
         document.getElementById('sumCategory').textContent = category?.name || '—';
-        document.getElementById('sumModel').textContent = model?.name || '—';
+        
+        // Если это готовая модель, показываем выбранную модель
+        if (state.projectType === 'ready' && state.selectedModel) {
+            const model = getAvailableModels().find(m => m.id === state.selectedModel);
+            document.getElementById('sumModelContainer').style.display = 'block';
+            document.getElementById('sumModel').textContent = model?.name || '—';
+        } else {
+            // Для индивидуальной модели скрываем поле "Модель"
+            document.getElementById('sumModelContainer').style.display = 'none';
+            document.getElementById('sumModel').textContent = '—';
+        }
+        
         document.getElementById('sumHeight').textContent = state.height;
         document.getElementById('sumFinalDays').textContent = finalDays;
         document.getElementById('sumExcl').textContent = state.exclusive ? 'ДА' : 'НЕТ';
@@ -2048,7 +2212,9 @@
             showNotification('Заполните имя и контактную информацию', true);
             return; 
         }
-        if (!state.selectedModel) { 
+        
+        // Для готовой модели проверяем, что выбрана модель
+        if (state.projectType === 'ready' && !state.selectedModel) { 
             showNotification('Выберите модель', true);
             return; 
         }
@@ -2097,7 +2263,12 @@
         const price = calculatePrice();
         const finalDays = calculateFinalDays();
         const category = categoriesConfig[state.selectedGender]?.find(cat => cat.id === state.selectedCategory);
-        const model = getAvailableModels().find(m => m.id === state.selectedModel);
+        
+        let modelName = '';
+        if (state.projectType === 'ready' && state.selectedModel) {
+            const model = getAvailableModels().find(m => m.id === state.selectedModel);
+            modelName = model?.name || '';
+        }
         
         const telegramMessage = `
 🎯 *НОВЫЙ ЗАКАЗ 3D-МОДЕЛИ*
@@ -2109,7 +2280,7 @@
 ┌─────────────────────
 ├ Тип: ${state.projectType === 'individual' ? 'Индивидуальная модель (стандартная цена)' : 'Готовая модель (скидка 50%)'}
 ├ Категория: ${category?.name}
-├ Модель: ${model?.name}
+${modelName ? `├ Модель: ${modelName}` : ''}
 ├ Пол: ${state.selectedGender === 'male' ? 'Мужской' : 'Женский'}
 ├ Высота: ${state.height} см
 ├ Срок: ${finalDays} дней
@@ -2360,10 +2531,16 @@
         const stage3Cost = price - stage1Cost - stage2Cost;
         
         const category = categoriesConfig[state.selectedGender]?.find(cat => cat.id === state.selectedCategory);
-        const model = getAvailableModels().find(m => m.id === state.selectedModel);
+        
+        let modelName = '';
+        if (state.projectType === 'ready' && state.selectedModel) {
+            const model = getAvailableModels().find(m => m.id === state.selectedModel);
+            modelName = model?.name || '';
+        }
+        
         const projectName = state.projectType === 'individual' ? 
-            `Индивидуальная 3D модель: ${model?.name}` : 
-            `3D модель по фото: ${model?.name}`;
+            `Индивидуальная 3D модель: ${category?.name}` : 
+            `3D модель по фото: ${modelName || category?.name}`;
         
         // Формируем полный текст договора
         let contractText = `
@@ -2512,7 +2689,7 @@ ${state.customerName}
 • Правка - это любые пожелания заказчика относительно результатов проектирования модели согласно критериям приемки
 • Количество пометок и комментариев на одном скриншоте не ограничено
 • На каждом этапе работы включена 1 бесплатная правка
-• Приемка правка происходит по тем же условиям, что и приемка модели
+• Приемка правки происходит по тем же условиям, что и приемка модели
 • Правки к принятым этапам оплачиваются дополнительно: 500 руб./подход
 • Правки отправляются в виде скриншотов с графическими пометками
 • Текстовые описания без графических пометок не подлежат рассмотрению
@@ -2527,7 +2704,7 @@ ${state.customerName}
 ДЕТАЛИ ЗАКАЗА:
 • Тип модели: ${state.projectType === 'individual' ? 'Индивидуальная модель по фото (стандартная цена)' : 'Готовая модель с лицом по фото (скидка 50%)'}
 • Категория: ${category?.name}
-• Модель: ${model?.name}
+${modelName ? `• Модель: ${modelName}` : ''}
 • Пол: ${state.selectedGender === 'male' ? 'Мужской' : 'Женский'}
 • Высота: ${state.height} см
 • Срок изготовления: ${calculateFinalDays()} дней
@@ -2547,27 +2724,6 @@ ${state.customerName}
     function generateDetailedContract() {
         const price = calculatePrice();
         
-        // Расчет сроков для этапов
-        const baseDays = parseInt(state.baseDays);
-        const stage2Duration = Math.max(2, Math.ceil(baseDays * 0.4));
-        const stage3Duration = Math.max(3, Math.ceil(baseDays * 0.6));
-        
-        // Расчет стоимости дополнительных услуг
-        let printingCost = 0;
-        let paintingCost = 0;
-        
-        if (state.printing) {
-            if (state.height === '10') printingCost = 2500;
-            else if (['15', '18'].includes(state.height)) printingCost = 4000;
-            else printingCost = 5500;
-        }
-        
-        if (state.painting) {
-            if (state.height === '10') paintingCost = 7000;
-            else if (['15', '18'].includes(state.height)) paintingCost = 10000;
-            else paintingCost = 12000;
-        }
-        
         // Текущая дата
         const now = new Date();
         const day = now.getDate();
@@ -2575,23 +2731,23 @@ ${state.customerName}
         const year = now.getFullYear();
         
         const category = categoriesConfig[state.selectedGender]?.find(cat => cat.id === state.selectedCategory);
-        const model = getAvailableModels().find(m => m.id === state.selectedModel);
+        
+        let modelName = '';
+        if (state.projectType === 'ready' && state.selectedModel) {
+            const model = getAvailableModels().find(m => m.id === state.selectedModel);
+            modelName = model?.name || '';
+        }
+        
         const projectName = state.projectType === 'individual' ? 
-            `Индивидуальная 3D модель: ${model?.name}` : 
-            `3D модель по фото: ${model?.name}`;
+            `Индивидуальная 3D модель: ${category?.name}` : 
+            `3D модель по фото: ${modelName || category?.name}`;
         
         // Разбивка стоимости моделирования (20%/30%/50%)
         const stage1Cost = Math.round(price * 0.2);
         const stage2Cost = Math.round(price * 0.3);
         const stage3Cost = price - stage1Cost - stage2Cost;
         
-        // Генерация HTML договора (код аналогичный предыдущей версии, но с обновленными данными)
-        // ... [остальной код функции generateDetailedContract остается таким же, как в предыдущей версии]
-        // Для экономии места не дублирую весь код, он почти идентичен
-        // В реальном использовании нужно скопировать функцию generateDetailedContract из предыдущей версии
-        // и заменить вывод данных на новые (category, model вместо template)
-        
-        // Показываем упрощенную версию
+        // Генерация HTML договора
         const contractHTML = `
             <div class="contract-container">
                 <div class="contract-header">
@@ -2603,7 +2759,7 @@ ${state.customerName}
                     <strong>Детали вашего заказа:</strong><br>
                     • Тип: ${state.projectType === 'individual' ? 'Индивидуальная модель' : 'Готовая модель'}<br>
                     • Категория: ${category?.name}<br>
-                    • Модель: ${model?.name}<br>
+                    ${modelName ? `• Модель: ${modelName}<br>` : ''}
                     • Пол: ${state.selectedGender === 'male' ? 'Мужской' : 'Женский'}<br>
                     • Высота: ${state.height} см<br>
                     • Срок: ${calculateFinalDays()} дней<br>
@@ -2631,7 +2787,7 @@ ${state.customerName}
         document.getElementById('contractScreen').innerHTML = contractHTML;
         document.querySelector('.screen.active').classList.remove('active');
         document.getElementById('contractScreen').classList.add('active');
-        updateProgressBar(6);
+        updateProgressBar(5);
     }
 
     // Поделиться договором как текст
