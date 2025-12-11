@@ -133,14 +133,6 @@
         "style": "head",
         "imageUrl": "https://drive.google.com/thumbnail?id=1JDAv-pKwYBd5I5CFmg-fpY3H_hEciADy&sz=w1000"
       }
-      {
-        "id": "full_neutral_man",
-        "name": "Мужчина полный рост, нейтральный стиль",
-        "category": "full",
-        "gender": "male",
-        "style": "neutral",
-        "imageUrl": "https://drive.google.com/thumbnail?id=1WDbjthBn9g8q9TT_J_3pX16uXeJjKgpI&sz=w1000"
-      },
     ]
   }
 }
