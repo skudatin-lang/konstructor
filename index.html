@@ -712,7 +712,19 @@
             }
             .category-image {
                 width: 100%;
-                height: 200px;
+                height: 180px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                background: #f8f9fa;
+            }
+            .category-image img {
+                height: 100%;
+                width: auto;
+                max-width: 100%;
+                object-fit: contain;
+                display: block;
             }
             .models-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -769,7 +781,6 @@
         @keyframes spin {
             100% { transform: rotate(360deg); }
         }
-
         /* === ИСПРАВЛЕНИЕ ИЗОБРАЖЕНИЯ ИНДИВИДУАЛЬНОЙ МОДЕЛИ === */
         .individual-model-card .model-image {
             height: 250px;
@@ -814,7 +825,6 @@
         <div class="step-label">Заказ</div>
     </div>
 </div>
-
 <!-- Экран 1 -->
 <div id="step1" class="screen active">
     <div class="screen-title">Выберите тип модели</div>
@@ -844,7 +854,6 @@
         </button>
     </div>
 </div>
-
 <!-- Экран 2 -->
 <div id="step2" class="screen">
     <div class="screen-title">Выберите категорию модели</div>
@@ -875,7 +884,6 @@
         </button>
     </div>
 </div>
-
 <!-- Экран 2.1 -->
 <div id="step2_1" class="screen models-screen">
     <div class="screen-title">
@@ -932,7 +940,6 @@
         </button>
     </div>
 </div>
-
 <!-- Экран 3 -->
 <div id="step3" class="screen">
     <div class="screen-title">Настройте стоимость вашего проекта</div>
@@ -1019,7 +1026,6 @@
         </button>
     </div>
 </div>
-
 <!-- Экран 4 -->
 <div id="step4" class="screen">
     <div class="screen-title">Ваш заказ</div>
@@ -1029,23 +1035,23 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
                 <div>
                     <strong>Тип модели:</strong><br>
-                    <span id="sumType">—</span>
+                    <span id="sumType"> — </span>
                 </div>
                 <div>
                     <strong>Категория:</strong><br>
-                    <span id="sumCategory">—</span>
+                    <span id="sumCategory"> — </span>
                 </div>
                 <div>
                     <strong>Модель:</strong><br>
-                    <span id="sumModel">—</span>
+                    <span id="sumModel"> — </span>
                 </div>
                 <div>
                     <strong>Высота:</strong><br>
-                    <span id="sumHeight">—</span> см
+                    <span id="sumHeight"> — </span> см
                 </div>
                 <div>
                     <strong>Срок:</strong><br>
-                    <span id="sumFinalDays">—</span> дней
+                    <span id="sumFinalDays"> — </span> дней
                 </div>
                 <div>
                     <strong>Эксклюзив:</strong><br>
@@ -1097,17 +1103,13 @@
         </button>
     </div>
 </div>
-
 <!-- Экран 5: Договор -->
 <div id="contractScreen" class="screen"></div>
-
 <!-- Подключаем модуль оформления заказа -->
 <script src="order-handler.js"></script>
-
 <script>
     // === Настройки Google Таблицы ===
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1_bkaqSmxAQbXZG4UZ4Y7bw-Mo110KHPAbnHXVLTG7_ZGH3b3kgl1kreks9kIe7-rpw/exec";
-
     // === Глобальное состояние ===
     let state = {
         projectType: null,
@@ -1127,25 +1129,21 @@
     let categoriesConfig = { male: [], female: [] };
     let modelsConfig = {};
     let currentStep = 1;
-
     // === Загрузка конфигурации из Google Таблицы ===
     async function loadConfig() {
         try {
             const catRes = await fetch(`${WEB_APP_URL}?sheet=categories`);
             if (!catRes.ok) throw new Error("Ошибка загрузки категорий");
             categoriesConfig = await catRes.json();
-
             const modRes = await fetch(`${WEB_APP_URL}?sheet=models`);
             if (!modRes.ok) throw new Error("Ошибка загрузки моделей");
             modelsConfig = await modRes.json();
-
             if (currentStep === 2) renderCategories();
         } catch (error) {
             console.error('Ошибка загрузки:', error);
             showNotification('Не удалось загрузить данные. Проверьте Google Apps Script.', true);
         }
     }
-
     // === Уведомления ===
     function showNotification(message, isError = false, isWarning = false) {
         const notification = document.createElement('div');
@@ -1154,7 +1152,6 @@
         document.body.appendChild(notification);
         setTimeout(() => notification.remove(), 5000);
     }
-
     // === 🔑 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: getCategoryPrice теперь учитывает ВЫСОТУ, СРОК, ЭКСКЛЮЗИВ ===
     function getCategoryPrice(category) {
         if (!category || typeof category.basePrice !== 'number') return 0;
@@ -1170,18 +1167,15 @@
         if (state.exclusive) price = Math.round(price * 1.6);
         return price;
     }
-
     // === Основная логика UI ===
     function getAvailableCategories(gender) {
         if (!state.projectType || !categoriesConfig[gender]) return [];
         return categoriesConfig[gender].filter(cat => cat.availableFor?.includes(state.projectType) || !cat.availableFor);
     }
-
     function getAvailableModels() {
         if (!state.selectedCategory || !state.selectedGender) return [];
         return modelsConfig[state.selectedCategory]?.[state.selectedGender] || [];
     }
-
     function selectProjectType(type) {
         state.projectType = type;
         // Сбрасываем настройки, чтобы избежать "переноса" значений
@@ -1190,24 +1184,19 @@
         state.exclusive = false;
         state.printing = false;
         state.painting = false;
-
         document.querySelectorAll('.project-type-card').forEach(el => el.classList.remove('selected'));
         event.currentTarget.classList.add('selected');
         document.getElementById('next1').disabled = false;
         if (currentStep === 2) renderCategories();
     }
-
     function renderCategories() {
         const maleGrid = document.getElementById('maleCategories');
         const femaleGrid = document.getElementById('femaleCategories');
-
         const maleCats = getAvailableCategories('male');
         const femaleCats = getAvailableCategories('female');
-
         renderCategoryGrid(maleGrid, maleCats, 'male');
         renderCategoryGrid(femaleGrid, femaleCats, 'female');
     }
-
     function renderCategoryGrid(container, categories, gender) {
         if (categories.length === 0) {
             container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#7f8c8d;">Нет доступных категорий</div>';
@@ -1243,7 +1232,6 @@
             container.appendChild(div);
         });
     }
-
     function goToModelsScreen() {
         if (!state.selectedGender || !state.selectedCategory) {
             showNotification('Сначала выберите категорию', true);
@@ -1256,7 +1244,6 @@
         renderModels();
         updateProgressBar(3);
     }
-
     function backToCategories() {
         state.selectedModel = null;
         document.getElementById('step2_1').classList.remove('active');
@@ -1265,15 +1252,12 @@
         document.getElementById('photoUploadSection').style.display = 'none';
         updateProgressBar(2);
     }
-
     function renderModels() {
         const modelsGrid = document.getElementById('modelsGrid');
         const individualContainer = document.getElementById('individualModelContainer');
         modelsGrid.style.display = 'none';
         individualContainer.style.display = 'none';
-
         const category = categoriesConfig[state.selectedGender]?.find(c => c.id === state.selectedCategory);
-
         if (state.projectType === 'individual') {
             individualContainer.style.display = 'block';
             document.getElementById('individualModelImage').src = category?.imageUrl || '';
@@ -1284,7 +1268,6 @@
             updateHeightOptions(state.selectedCategory);
             return;
         }
-
         modelsGrid.style.display = 'grid';
         modelsGrid.innerHTML = '';
         const models = getAvailableModels();
@@ -1316,7 +1299,6 @@
             modelsGrid.appendChild(div);
         });
     }
-
     function getStyleName(style) {
         const map = {
             neutral: 'Нейтральный', business: 'Деловой', free: 'Свободный',
@@ -1325,7 +1307,6 @@
         };
         return map[style] || 'Стандарт';
     }
-
     function handlePhotoUpload(event) {
         const files = Array.from(event.target.files);
         if (!files.length) return;
@@ -1355,12 +1336,10 @@
             renderPhotoPreview();
         });
     }
-
     function removePhoto(index) {
         state.uploadedPhotos.splice(index, 1);
         renderPhotoPreview();
     }
-
     function renderPhotoPreview() {
         const preview = document.getElementById('photoPreview');
         if (state.uploadedPhotos.length === 0) {
@@ -1376,13 +1355,11 @@
             </div>
         `).join('');
     }
-
     function updateProgressBar(step) {
         document.querySelectorAll('.progress-step').forEach((el, i) => {
             el.classList.toggle('active', i < step);
         });
     }
-
     function nextStep(step) {
         currentStep = step;
         document.querySelector('.screen.active').classList.remove('active');
@@ -1390,7 +1367,6 @@
         else if (step === 3) { document.getElementById('step3').classList.add('active'); updateProgressBar(4); }
         else if (step === 4) { document.getElementById('step4').classList.add('active'); updateSummary(); updateProgressBar(5); }
     }
-
     function prevStep(step) {
         currentStep = step;
         document.querySelector('.screen.active').classList.remove('active');
@@ -1398,21 +1374,20 @@
         else if (step === 2) { document.getElementById('step2').classList.add('active'); renderCategories(); updateProgressBar(2); }
         else if (step === 3) { document.getElementById('step3').classList.add('active'); updateProgressBar(4); }
     }
-
     function updateSummary() {
         const price = calculatePrice();
         const finalDays = calculateFinalDays();
         const typeName = state.projectType === 'individual' ? 'Индивидуальная модель (стандартная цена)' : 'Готовая модель (скидка 50%)';
         const category = categoriesConfig[state.selectedGender]?.find(c => c.id === state.selectedCategory);
-        let modelName = '—';
+        let modelName = ' — ';
         if (state.projectType === 'individual') {
             modelName = 'Индивидуальная модель';
         } else {
             const model = getAvailableModels().find(m => m.id === state.selectedModel);
-            modelName = model?.name || '—';
+            modelName = model?.name || ' — ';
         }
         document.getElementById('sumType').textContent = typeName;
-        document.getElementById('sumCategory').textContent = category?.name || '—';
+        document.getElementById('sumCategory').textContent = category?.name || ' — ';
         document.getElementById('sumModel').textContent = modelName;
         document.getElementById('sumHeight').textContent = state.height;
         document.getElementById('sumFinalDays').textContent = finalDays;
@@ -1421,7 +1396,6 @@
         document.getElementById('sumPaint').textContent = state.painting ? 'ДА' : 'НЕТ';
         document.getElementById('sumPrice').textContent = price.toLocaleString();
     }
-
     function setupConfigOptions() {
         document.querySelectorAll('#heightGroup .option-btn').forEach(btn => {
             btn.onclick = () => {
@@ -1444,7 +1418,6 @@
         const activeBtn = document.querySelector(`#heightGroup .option-btn[data-value="${state.height}"]`);
         if (activeBtn) activeBtn.classList.add('active');
     }
-
     function updateHeightOptions(catId) {
         const isBudget = catId === 'budget';
         const isBustMini = ['bust', 'mini', 'budget'].includes(catId);
@@ -1472,7 +1445,6 @@
         });
         updatePrice();
     }
-
     function toggleExclusive(checked) { state.exclusive = checked; updatePrice(); }
     function togglePrinting(checked) {
         state.printing = checked;
@@ -1490,7 +1462,6 @@
         updatePrice();
     }
     function togglePainting(checked) { state.painting = checked; document.getElementById('paintingPrice').style.display = checked ? 'block' : 'none'; updatePrice(); }
-
     // === Расчет цены (используется на экране настройки и в договоре) ===
     function calculatePrice() {
         if (!state.selectedCategory || !state.selectedGender) return 0;
@@ -1517,28 +1488,23 @@
         }
         return total;
     }
-
     function calculateFinalDays() {
         let days = parseInt(state.baseDays) || 14;
         if (state.printing) days += 14;
         if (state.painting) days += 14;
         return days;
     }
-
     function updatePrice() {
         document.getElementById('totalPrice').textContent = calculatePrice().toLocaleString();
         document.getElementById('finalDays').textContent = calculateFinalDays();
     }
-
     function submitOrderFromForm() {
         const name = document.getElementById('name').value.trim();
         const contact = document.getElementById('contact').value.trim();
         const agree = document.getElementById('agree').checked;
         const comment = document.getElementById('comment').value.trim();
-
         window.submitOrder(name, contact, comment, agree, state.selectedModel, state.uploadedPhotos);
     }
-
     document.addEventListener('DOMContentLoaded', () => {
         loadConfig();
         setupConfigOptions();
