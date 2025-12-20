@@ -1,1515 +1,305 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title> Конструктор заказа 3D-модели </title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f7fa;
-        }
-        .screen { display: none; }
-        .screen.active { display: block; animation: fadeIn 0.3s; }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .screen-title {
-            text-align: center;
-            font-size: 28px;
-            font-weight: 700;
-            color: #2c3e50;
-            margin: 30px 0;
-            position: relative;
-        }
-        .screen-title:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: #3498db;
-            margin: 10px auto;
-            border-radius: 2px;
-        }
-        .project-type-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-        .project-type-card {
-            background: white;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            border: 3px solid #e8ecf1;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .project-type-card:hover {
-            transform: translateY(-5px);
-            border-color: #3498db;
-            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.15);
-        }
-        .project-type-card.selected {
-            border-color: #3498db;
-            background: linear-gradient(135deg, #f8fbff 0%, #eef7ff 100%);
-        }
-        .project-type-card h3 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-        .project-type-card p {
-            color: #5a6c7d;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        .price-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #2ecc71;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 14px;
-            max-width: 150px;
-            word-wrap: break-word;
-            text-align: center;
-            line-height: 1.3;
-        }
-        .photo-note {
-            color: #e74c3c;
-            font-size: 14px;
-            margin-top: 15px;
-            padding: 12px;
-            background: #ffeaea;
-            border-radius: 8px;
-            border-left: 4px solid #e74c3c;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        .photo-note i {
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        .category-section {
-            margin: 30px 0;
-        }
-        .category-section h3 {
-            color: #2c3e50;
-            margin: 20px 0 15px;
-            font-size: 20px;
-            border-left: 4px solid #3498db;
-            padding-left: 15px;
-        }
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-            gap: 25px;
-            margin: 20px 0;
-        }
-        .category-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            display: flex;
-            height: 200px;
-        }
-        .category-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .category-card.selected {
-            border-color: #3498db;
-            background: #f8fbff;
-        }
-        .category-image {
-            width: 200px;
-            height: 200px;
-            flex-shrink: 0;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .category-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .category-card:hover .category-image img {
-            transform: scale(1.05);
-        }
-        .category-image.male { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .category-image.female { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .category-info {
-            padding: 25px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .category-name {
-            font-weight: 700;
-            color: #2c3e50;
-            font-size: 22px;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-        .category-description {
-            color: #5a6c7d;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-        .category-price {
-            font-weight: 700;
-            color: #3498db;
-            font-size: 24px;
-        }
-        .category-price .original {
-            font-size: 18px;
-            color: #95a5a6;
-            text-decoration: line-through;
-            margin-right: 8px;
-        }
-        .category-card.budget-category .category-price {
-            color: #e74c3c;
-            font-size: 22px;
-        }
-        .budget-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 5px;
-        }
-        .models-screen .screen-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-        .back-to-categories {
-            background: #95a5a6;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        .back-to-categories:hover {
-            background: #7f8c8d;
-        }
-        .models-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        .model-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        .model-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .model-card.selected {
-            border-color: #3498db;
-            background: #f8fbff;
-        }
-        .model-image {
-            width: 100%;
-            height: 250px;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .model-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .model-card:hover .model-image img {
-            transform: scale(1.05);
-        }
-        .model-info {
-            padding: 20px;
-        }
-        .model-name {
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-size: 18px;
-            height: 54px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            line-height: 1.3;
-        }
-        .model-style {
-            display: inline-block;
-            background: #ecf0f1;
-            color: #7f8c8d;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        .individual-model-card {
-            max-width: 600px;
-            margin: 40px auto;
-        }
-        .individual-model-info {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-        .individual-model-info h3 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        .individual-model-info p {
-            color: #5a6c7d;
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        .photo-upload-section {
-            margin: 30px 0;
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-        .photo-upload-box {
-            border: 3px dashed #bdc3c7;
-            border-radius: 12px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #fafcfd;
-        }
-        .photo-upload-box:hover {
-            border-color: #3498db;
-            background: #f0f8ff;
-        }
-        .upload-icon {
-            font-size: 48px;
-            color: #3498db;
-            margin-bottom: 15px;
-        }
-        .upload-text {
-            color: #5a6c7d;
-            margin-bottom: 10px;
-        }
-        .upload-hint {
-            color: #95a5a6;
-            font-size: 14px;
-        }
-        .photo-preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .preview-photo-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-        .preview-photo-item img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            display: block;
-        }
-        .remove-photo-btn {
-            position: absolute;
-            top: 4px;
-            right: 4px;
-            background: rgba(231, 76, 60, 0.9);
-            color: white;
-            border: none;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
-        .remove-photo-btn:hover {
-            background: #c0392b;
-        }
-        .config-section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-        .config-group {
-            margin-bottom: 40px;
-        }
-        .config-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-        .config-title:before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: #3498db;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-        .option-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 15px 0;
-        }
-        .option-btn {
-            padding: 14px 24px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            color: #495057;
-            transition: all 0.2s ease;
-            min-width: 100px;
-            text-align: center;
-        }
-        .option-btn:hover {
-            border-color: #3498db;
-            background: #f0f8ff;
-        }
-        .option-btn.active {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        }
-        .option-btn.disabled {
-            background: #f5f5f5;
-            color: #999;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-        .toggle-group {
-            display: flex;
-            gap: 40px;
-            margin: 20px 0;
-        }
-        .toggle-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .toggle-label {
-            font-weight: 500;
-            color: #2c3e50;
-            font-size: 18px;
-        }
-        .toggle-switch {
-            position: relative;
-            width: 60px;
-            height: 30px;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #e9ecef;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .toggle-slider {
-            background-color: #3498db;
-        }
-        input:checked + .toggle-slider:before {
-            transform: translateX(30px);
-        }
-        .summary-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            padding: 30px;
-            color: white;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-        .summary-price {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .summary-days {
-            font-size: 20px;
-            opacity: 0.9;
-        }
-        .order-form {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            margin: 30px 0;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-        }
-        .form-group {
-            margin-bottom: 25px;
-        }
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        .form-input {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        .form-input:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-            outline: none;
-        }
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 25px 0;
-        }
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-        .btn:active {
-            transform: translateY(0);
-        }
-        .btn-secondary {
-            background: #95a5a6;
-            box-shadow: 0 5px 20px rgba(149, 165, 166, 0.3);
-        }
-        .btn-secondary:hover {
-            box-shadow: 0 8px 25px rgba(149, 165, 166, 0.4);
-        }
-        .btn-success {
-            background: linear-gradient(135deg, #2ecc71 0%, #1abc9c 100%);
-            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
-        }
-        .btn-success:hover {
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
-        }
-        .btn:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            margin: 40px 0;
-            position: relative;
-        }
-        .progress-bar:before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #e9ecef;
-            z-index: 1;
-        }
-        .progress-step {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            flex: 1;
-        }
-        .step-circle {
-            width: 40px;
-            height: 40px;
-            background: white;
-            border: 4px solid #e9ecef;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #95a5a6;
-            margin: 0 auto 10px;
-            transition: all 0.3s;
-        }
-        .progress-step.active .step-circle {
-            background: #3498db;
-            border-color: #3498db;
-            color: white;
-        }
-        .step-label {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        .contract-container {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .contract-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #007cba;
-        }
-        .project-info {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #2ecc71;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease;
-        }
-        .notification.error {
-            background: #e74c3c;
-        }
-        .notification.warning {
-            background: #f39c12;
-        }
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        @media (max-width: 768px) {
-            .project-type-container {
-                grid-template-columns: 1fr;
-            }
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-            .category-card {
-                flex-direction: column;
-                height: auto;
-            }
-            .category-image {
-                width: 100%;
-                height: 180px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-                background: #f8f9fa;
-            }
-            .category-image img {
-                height: 100%;
-                width: auto;
-                max-width: 100%;
-                object-fit: contain;
-                display: block;
-            }
-            .models-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            .option-group {
-                justify-content: center;
-            }
-            .toggle-group {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .btn {
-                padding: 14px 24px;
-                font-size: 14px;
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            .contract-container {
-                padding: 15px;
-            }
-            .price-badge {
-                position: static;
-                display: inline-block;
-                margin-bottom: 15px;
-            }
-            .category-name,
-            .model-name {
-                height: auto;
-                -webkit-line-clamp: 3;
-            }
-            .category-image,
-            .model-image {
-                height: 180px;
-            }
-            .models-screen .screen-title {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-        .icon {
-            font-size: 20px;
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
-        }
-        .loading i {
-            font-size: 48px;
-            color: #3498db;
-            margin-bottom: 20px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        /* === ИСПРАВЛЕНИЕ ИЗОБРАЖЕНИЯ ИНДИВИДУАЛЬНОЙ МОДЕЛИ === */
-        .individual-model-card .model-image {
-            height: 250px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: #f8f9fa;
-        }
-        .individual-model-card .model-image img {
-            height: 100%;
-            width: auto;
-            max-width: 100%;
-            object-fit: contain;
-            display: block;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор заказа 3D-модели</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<!-- Прогресс-бар -->
-<div class="progress-bar" id="progressBar">
-    <div class="progress-step active">
-        <div class="step-circle">1</div>
-        <div class="step-label">Тип модели</div>
-    </div>
-    <div class="progress-step">
-        <div class="step-circle">2</div>
-        <div class="step-label">Категория</div>
-    </div>
-    <div class="progress-step">
-        <div class="step-circle">3</div>
-        <div class="step-label">Модель</div>
-    </div>
-    <div class="progress-step">
-        <div class="step-circle">4</div>
-        <div class="step-label">Настройка</div>
-    </div>
-    <div class="progress-step">
-        <div class="step-circle">5</div>
-        <div class="step-label">Заказ</div>
-    </div>
-</div>
-<!-- Экран 1 -->
-<div id="step1" class="screen active">
-    <div class="screen-title">Выберите тип модели</div>
-    <div class="project-type-container">
-        <div class="project-type-card" onclick="selectProjectType('ready')">
-            <div class="price-badge">скидка 50%</div>
-            <h3>1. Готовая модель с лицом по фото</h3>
-            <p>Выберите готовую модель из библиотеки и измените ей лицо в соответствии с вашим фото</p>
-            <div class="photo-note">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div>Требуется качественное фото в фас. При непригодном фото — возможны доработки за дополнительную плату.</div>
-            </div>
+    <!-- Прогресс-бар -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-step active">
+            <div class="step-circle">1</div>
+            <div class="step-label">Тип модели</div>
         </div>
-        <div class="project-type-card" onclick="selectProjectType('individual')">
-            <div class="price-badge">стандартная цена</div>
-            <h3>2. Индивидуальная модель по фото</h3>
-            <p>Создайте свою индивидуальную модель в соответствии вашим фото</p>
-            <div class="photo-note">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div>Требуется чёткое фото в 3/4. При непригодном фото — возврат оплаты и расторжение договора.</div>
-            </div>
+        <div class="progress-step">
+            <div class="step-circle">2</div>
+            <div class="step-label">Категория</div>
+        </div>
+        <div class="progress-step">
+            <div class="step-circle">3</div>
+            <div class="step-label">Модель</div>
+        </div>
+        <div class="progress-step">
+            <div class="step-circle">4</div>
+            <div class="step-label">Настройка</div>
+        </div>
+        <div class="progress-step">
+            <div class="step-circle">5</div>
+            <div class="step-label">Заказ</div>
         </div>
     </div>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="btn" onclick="nextStep(2)" id="next1" disabled>
-            <i class="fas fa-cogs"></i> Выбрать категорию
-        </button>
-    </div>
-</div>
-<!-- Экран 2 -->
-<div id="step2" class="screen">
-    <div class="screen-title">Выберите категорию модели</div>
-    <div class="category-section">
-        <h3>Мужские модели</h3>
-        <div class="category-grid" id="maleCategories">
-            <div class="loading">
-                <i class="fas fa-spinner"></i>
-                <div>Загрузка категорий...</div>
+
+    <!-- Экран 1: Тип модели -->
+    <div id="step1" class="screen active">
+        <div class="screen-title">Выберите тип модели</div>
+        <div class="project-type-container">
+            <div class="project-type-card" onclick="selectProjectType('ready')">
+                <div class="price-badge">скидка 50%</div>
+                <h3>1. Готовая модель с лицом по фото</h3>
+                <p>Выберите готовую модель из библиотеки и измените ей лицо в соответствии с вашим фото</p>
+                <div class="photo-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>Требуется качественное фото в фас. При непригодном фото — возможны доработки за дополнительную плату.</div>
+                </div>
+            </div>
+            <div class="project-type-card" onclick="selectProjectType('individual')">
+                <div class="price-badge">стандартная цена</div>
+                <h3>2. Индивидуальная модель по фото</h3>
+                <p>Создайте свою индивидуальную модель в соответствии вашим фото</p>
+                <div class="photo-note">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>Требуется чёткое фото в 3/4. При непригодном фото — возврат оплаты и расторжение договора.</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="category-section">
-        <h3>Женские модели</h3>
-        <div class="category-grid" id="femaleCategories">
-            <div class="loading">
-                <i class="fas fa-spinner"></i>
-                <div>Загрузка категорий...</div>
-            </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="btn" onclick="nextStep(2)" id="next1" disabled>
+                <i class="fas fa-cogs"></i> Выбрать категорию
+            </button>
         </div>
     </div>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="btn btn-secondary" onclick="prevStep(1)">
-            <i class="fas fa-arrow-left"></i> Назад
-        </button>
-        <button class="btn" onclick="goToModelsScreen()" id="next2" disabled>
-            <i class="fas fa-arrow-right"></i> Выбрать модель
-        </button>
-    </div>
-</div>
-<!-- Экран 2.1 -->
-<div id="step2_1" class="screen models-screen">
-    <div class="screen-title">
-        <button class="back-to-categories" onclick="backToCategories()">
-            <i class="fas fa-arrow-left"></i> К категориям
-        </button>
-        <span id="modelsTitle">Выберите модель</span>
-    </div>
-    <div id="modelsContainer">
-        <div class="models-grid" id="modelsGrid">
-            <div class="loading">
-                <i class="fas fa-spinner"></i>
-                <div>Загрузка моделей...</div>
+
+    <!-- Экран 2: Выбор категории -->
+    <div id="step2" class="screen">
+        <div class="screen-title">Выберите категорию модели</div>
+        <div class="category-section">
+            <h3>Мужские модели</h3>
+            <div class="category-grid" id="maleCategories">
+                <div class="loading"><i class="fas fa-spinner"></i><div>Загрузка категорий...</div></div>
             </div>
         </div>
-        <div id="individualModelContainer" style="display: none;">
-            <div class="individual-model-card">
-                <div class="model-card selected">
-                    <div class="model-image">
-                        <img id="individualModelImage" src="" alt="Индивидуальная модель">
-                    </div>
-                    <div class="model-info">
-                        <div class="model-name" id="individualModelName">Индивидуальная модель</div>
-                        <p style="color: #5a6c7d; margin: 10px 0;">Вы выбрали индивидуальную модель. Загрузите фото для создания уникальной 3D-модели.</p>
+        <div class="category-section">
+            <h3>Женские модели</h3>
+            <div class="category-grid" id="femaleCategories">
+                <div class="loading"><i class="fas fa-spinner"></i><div>Загрузка категорий...</div></div>
+            </div>
+        </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="btn btn-secondary" onclick="prevStep(1)"><i class="fas fa-arrow-left"></i> Назад</button>
+            <button class="btn" onclick="goToModelsScreen()" id="next2" disabled><i class="fas fa-arrow-right"></i> Выбрать модель</button>
+        </div>
+    </div>
+
+    <!-- Экран 2.1: Выбор модели -->
+    <div id="step2_1" class="screen models-screen">
+        <div class="screen-title">
+            <button class="back-to-categories" onclick="backToCategories()"><i class="fas fa-arrow-left"></i> К категориям</button>
+            <span id="modelsTitle">Выберите модель</span>
+        </div>
+        <div id="modelsContainer">
+            <div class="models-grid" id="modelsGrid">
+                <div class="loading"><i class="fas fa-spinner"></i><div>Загрузка моделей...</div></div>
+            </div>
+            <div id="individualModelContainer" style="display: none;">
+                <div class="individual-model-card">
+                    <div class="model-card selected">
+                        <div class="model-image"><img id="individualModelImage" src="" alt="Индивидуальная модель"></div>
+                        <div class="model-info">
+                            <div class="model-name" id="individualModelName">Индивидуальная модель</div>
+                            <p style="color: #5a6c7d; margin: 10px 0;">Вы выбрали индивидуальную модель. Загрузите фото для создания уникальной 3D-модели.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="photoUploadSection" style="display: none;">
-        <div class="photo-upload-section">
-            <div class="photo-upload-box" onclick="document.getElementById('photoInput').click()">
-                <div class="upload-icon">
-                    <i class="fas fa-cloud-upload-alt"></i>
+        <div id="photoUploadSection" style="display: none;">
+            <div class="photo-upload-section">
+                <div class="photo-upload-box" onclick="document.getElementById('photoInput').click()">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="upload-text"><strong>Загрузите до 5 фото для модели</strong></div>
+                    <div class="upload-hint">Нажмите или перетащите файлы сюда<br>Поддерживаемые форматы: JPG, PNG (до 5 МБ каждый)</div>
                 </div>
-                <div class="upload-text">
-                    <strong>Загрузите до 5 фото для модели</strong>
-                </div>
-                <div class="upload-hint">
-                    Нажмите или перетащите файлы сюда<br>
-                    Поддерживаемые форматы: JPG, PNG (до 5 МБ каждый)
-                </div>
-            </div>
-            <input type="file" id="photoInput" accept="image/*" multiple style="display: none;" onchange="handlePhotoUpload(event)">
-            <div id="photoPreview" class="photo-preview-grid"></div>
-        </div>
-    </div>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="btn btn-secondary" onclick="backToCategories()">
-            <i class="fas fa-arrow-left"></i> Назад
-        </button>
-        <button class="btn" onclick="nextStep(3)" id="next2_1" disabled>
-            <i class="fas fa-sliders-h"></i> Настроить проект
-        </button>
-    </div>
-</div>
-<!-- Экран 3 -->
-<div id="step3" class="screen">
-    <div class="screen-title">Настройте стоимость вашего проекта</div>
-    <div class="config-section">
-        <div class="config-group">
-            <div class="config-title">Высота модели</div>
-            <div class="option-group" id="heightGroup">
-                <div class="option-btn" data-value="10">10 см</div>
-                <div class="option-btn" data-value="15">15 см</div>
-                <div class="option-btn" data-value="18">18 см</div>
-                <div class="option-btn" data-value="20">20 см</div>
-                <div class="option-btn" data-value="25">25 см</div>
-            </div>
-            <div style="color: #7f8c8d; font-size: 14px; margin-top: 10px;">
-                Дополнительно к базовой стоимости: 0 руб - 10 см; +15% - 15,18 см; +25% - 20,25 см
+                <input type="file" id="photoInput" accept="image/*" multiple style="display: none;" onchange="handlePhotoUpload(event)">
+                <div id="photoPreview" class="photo-preview-grid"></div>
             </div>
         </div>
-        <div class="config-group">
-            <div class="config-title">Сроки изготовления</div>
-            <div class="option-group" id="daysGroup">
-                <div class="option-btn" data-value="30">30 дн</div>
-                <div class="option-btn" data-value="21">21 дн</div>
-                <div class="option-btn" data-value="14">14 дн</div>
-                <div class="option-btn" data-value="7">7 дн</div>
-                <div class="option-btn" data-value="3">3 дн</div>
-            </div>
-            <div style="color: #7f8c8d; font-size: 14px; margin-top: 10px;">
-                Дополнительно к базовой стоимости: 0 руб - 30,21,14 дн; +10% - 7 дн; +20% - 3 дн
-            </div>
-        </div>
-        <div class="config-group">
-            <div class="config-title">Эксклюзивные права на использование</div>
-            <div class="toggle-group">
-                <div class="toggle-item">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="exclusiveToggle" onchange="toggleExclusive(this.checked)">
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <span class="toggle-label">ДА (+60% к стоимости)</span>
-                </div>
-            </div>
-        </div>
-        <div class="config-group">
-            <div class="config-title">Печать модели</div>
-            <div class="toggle-group">
-                <div class="toggle-item">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="printingToggle" onchange="togglePrinting(this.checked)">
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <span class="toggle-label">ДА (срок +14 дн)</span>
-                </div>
-            </div>
-            <div id="printingPrice" style="color: #3498db; font-size: 16px; margin-top: 10px; display: none;">
-                Стоимость: <span id="printingCost">0</span> руб
-            </div>
-        </div>
-        <div class="config-group">
-            <div class="config-title">Покраска модели</div>
-            <div class="toggle-group">
-                <div class="toggle-item">
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="paintingToggle" onchange="togglePainting(this.checked)" disabled>
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <span class="toggle-label">ДА (срок +14 дн)</span>
-                </div>
-            </div>
-            <div id="paintingPrice" style="color: #3498db; font-size: 16px; margin-top: 10px; display: none;">
-                Стоимость: <span id="paintingCost">0</span> руб
-            </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="btn btn-secondary" onclick="backToCategories()"><i class="fas fa-arrow-left"></i> Назад</button>
+            <button class="btn" onclick="nextStep(3)" id="next2_1" disabled><i class="fas fa-sliders-h"></i> Настроить проект</button>
         </div>
     </div>
-    <div class="summary-box">
-        <div class="summary-price"><span id="totalPrice">0</span> ₽</div>
-        <div class="summary-days">Итоговый срок: <span id="finalDays">14</span> дней</div>
-    </div>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="btn btn-secondary" onclick="prevStep(2)">
-            <i class="fas fa-arrow-left"></i> Назад
-        </button>
-        <button class="btn" onclick="nextStep(4)">
-            <i class="fas fa-shopping-cart"></i> Оформить заказ
-        </button>
-    </div>
-</div>
-<!-- Экран 4 -->
-<div id="step4" class="screen">
-    <div class="screen-title">Ваш заказ</div>
-    <div class="config-section">
-        <div class="config-group">
-            <div class="config-title">Информация о заказе</div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-                <div>
-                    <strong>Тип модели:</strong><br>
-                    <span id="sumType"> — </span>
-                </div>
-                <div>
-                    <strong>Категория:</strong><br>
-                    <span id="sumCategory"> — </span>
-                </div>
-                <div>
-                    <strong>Модель:</strong><br>
-                    <span id="sumModel"> — </span>
-                </div>
-                <div>
-                    <strong>Высота:</strong><br>
-                    <span id="sumHeight"> — </span> см
-                </div>
-                <div>
-                    <strong>Срок:</strong><br>
-                    <span id="sumFinalDays"> — </span> дней
-                </div>
-                <div>
-                    <strong>Эксклюзив:</strong><br>
-                    <span id="sumExcl">НЕТ</span>
-                </div>
-                <div>
-                    <strong>Печать:</strong><br>
-                    <span id="sumPrint">НЕТ</span>
-                </div>
-                <div>
-                    <strong>Покраска:</strong><br>
-                    <span id="sumPaint">НЕТ</span>
-                </div>
-                <div>
-                    <strong>Стоимость:</strong><br>
-                    <span id="sumPrice" style="font-weight: 700; font-size: 22px; color: #2ecc71;">0</span> ₽
+
+    <!-- Экран 3: Настройка -->
+    <div id="step3" class="screen">
+        <div class="screen-title">Настройте стоимость вашего проекта</div>
+        <div class="config-section">
+            <div class="config-group">
+                <div class="config-title">Высота модели</div>
+                <div class="option-group" id="heightGroup">
+                    <div class="option-btn" data-value="10">10 см</div>
+                    <div class="option-btn" data-value="15">15 см</div>
+                    <div class="option-btn" data-value="18">18 см</div>
+                    <div class="option-btn" data-value="20">20 см</div>
+                    <div class="option-btn" data-value="25">25 см</div>
                 </div>
             </div>
-        </div>
-        <div class="config-group">
-            <div class="config-title">Контактная информация</div>
-            <p style="color: #7f8c8d; margin-bottom: 25px;">
-                Для оформления заказа заполните анкету. Продолжая вы соглашаетесь на обработку персональных данных
-            </p>
-            <div class="form-group">
-                <label class="form-label">Введите ваше имя</label>
-                <input type="text" class="form-input" id="name" placeholder="Иван Иванов">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Введите ваш WhatsApp / Telegram</label>
-                <input type="text" class="form-input" id="contact" placeholder="@username или +79123456789">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Комментарий к заказу (необязательно)</label>
-                <textarea class="form-input" id="comment" rows="3" placeholder="Дополнительные пожелания..."></textarea>
-            </div>
-            <div class="checkbox-group">
-                <input type="checkbox" id="agree" style="width: 20px; height: 20px;">
-                <label for="agree">Согласен на обработку персональных данных</label>
-            </div>
-        </div>
-    </div>
-    <div style="text-align: center; margin: 40px 0;">
-        <button class="btn btn-secondary" onclick="prevStep(3)">
-            <i class="fas fa-arrow-left"></i> Назад
-        </button>
-        <button class="btn btn-success" onclick="submitOrderFromForm()" id="submitOrder">
-            <i class="fas fa-check-circle"></i> Оформить заказ
-        </button>
-    </div>
-</div>
-<!-- Экран 5: Договор -->
-<div id="contractScreen" class="screen"></div>
-<!-- Подключаем модуль оформления заказа -->
-<script src="order-handler.js"></script>
-<script>
-    // === Настройки Google Таблицы ===
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycby1_bkaqSmxAQbXZG4UZ4Y7bw-Mo110KHPAbnHXVLTG7_ZGH3b3kgl1kreks9kIe7-rpw/exec";
-    // === Глобальное состояние ===
-    let state = {
-        projectType: null,
-        selectedGender: null,
-        selectedCategory: null,
-        selectedModel: null,
-        uploadedPhotos: [],
-        height: '15',
-        baseDays: '14',
-        exclusive: false,
-        printing: false,
-        painting: false,
-        customerName: '',
-        customerContact: '',
-        comment: ''
-    };
-    let categoriesConfig = { male: [], female: [] };
-    let modelsConfig = {};
-    let currentStep = 1;
-    // === Загрузка конфигурации из Google Таблицы ===
-    async function loadConfig() {
-        try {
-            const catRes = await fetch(`${WEB_APP_URL}?sheet=categories`);
-            if (!catRes.ok) throw new Error("Ошибка загрузки категорий");
-            categoriesConfig = await catRes.json();
-            const modRes = await fetch(`${WEB_APP_URL}?sheet=models`);
-            if (!modRes.ok) throw new Error("Ошибка загрузки моделей");
-            modelsConfig = await modRes.json();
-            if (currentStep === 2) renderCategories();
-        } catch (error) {
-            console.error('Ошибка загрузки:', error);
-            showNotification('Не удалось загрузить данные. Проверьте Google Apps Script.', true);
-        }
-    }
-    // === Уведомления ===
-    function showNotification(message, isError = false, isWarning = false) {
-        const notification = document.createElement('div');
-        notification.className = `notification ${isError ? 'error' : isWarning ? 'warning' : ''}`;
-        notification.innerHTML = `<i class="fas fa-${isError ? 'exclamation-circle' : isWarning ? 'exclamation-triangle' : 'check-circle'}"></i> <span>${message}</span>`;
-        document.body.appendChild(notification);
-        setTimeout(() => notification.remove(), 5000);
-    }
-    // === 🔑 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ: getCategoryPrice теперь учитывает ВЫСОТУ, СРОК, ЭКСКЛЮЗИВ ===
-    function getCategoryPrice(category) {
-        if (!category || typeof category.basePrice !== 'number') return 0;
-        let price = category.basePrice;
-        if (state.projectType === 'ready' && !category.noDiscount) {
-            price = Math.round(price * 0.5);
-        }
-        // Применяем надбавки, как в calculatePrice()
-        if (['15', '18'].includes(state.height)) price = Math.round(price * 1.15);
-        else if (['20', '25'].includes(state.height)) price = Math.round(price * 1.25);
-        if (state.baseDays === '7') price = Math.round(price * 1.1);
-        else if (state.baseDays === '3') price = Math.round(price * 1.2);
-        if (state.exclusive) price = Math.round(price * 1.6);
-        return price;
-    }
-    // === Основная логика UI ===
-    function getAvailableCategories(gender) {
-        if (!state.projectType || !categoriesConfig[gender]) return [];
-        return categoriesConfig[gender].filter(cat => cat.availableFor?.includes(state.projectType) || !cat.availableFor);
-    }
-    function getAvailableModels() {
-        if (!state.selectedCategory || !state.selectedGender) return [];
-        return modelsConfig[state.selectedCategory]?.[state.selectedGender] || [];
-    }
-    function selectProjectType(type) {
-        state.projectType = type;
-        // Сбрасываем настройки, чтобы избежать "переноса" значений
-        state.height = '15';
-        state.baseDays = '14';
-        state.exclusive = false;
-        state.printing = false;
-        state.painting = false;
-        document.querySelectorAll('.project-type-card').forEach(el => el.classList.remove('selected'));
-        event.currentTarget.classList.add('selected');
-        document.getElementById('next1').disabled = false;
-        if (currentStep === 2) renderCategories();
-    }
-    function renderCategories() {
-        const maleGrid = document.getElementById('maleCategories');
-        const femaleGrid = document.getElementById('femaleCategories');
-        const maleCats = getAvailableCategories('male');
-        const femaleCats = getAvailableCategories('female');
-        renderCategoryGrid(maleGrid, maleCats, 'male');
-        renderCategoryGrid(femaleGrid, femaleCats, 'female');
-    }
-    function renderCategoryGrid(container, categories, gender) {
-        if (categories.length === 0) {
-            container.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#7f8c8d;">Нет доступных категорий</div>';
-            return;
-        }
-        container.innerHTML = '';
-        categories.forEach(cat => {
-            const price = getCategoryPrice(cat);
-            const div = document.createElement('div');
-            div.className = `category-card ${cat.noDiscount ? 'budget-category' : ''}`;
-            div.dataset.gender = gender;
-            div.dataset.category = cat.id;
-            div.innerHTML = `
-                <div class="category-image ${gender}">
-                    <img src="${cat.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkQiLz48dGV4dCB4PSI1MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Категория</dGV4dD48L3N2Zz4='}" alt="${cat.name}" loading="lazy">
+            <div class="config-group">
+                <div class="config-title">Сроки изготовления</div>
+                <div class="option-group" id="daysGroup">
+                    <div class="option-btn" data-value="30">30 дн</div>
+                    <div class="option-btn" data-value="21">21 дн</div>
+                    <div class="option-btn" data-value="14">14 дн</div>
+                    <div class="option-btn" data-value="7">7 дн</div>
+                    <div class="option-btn" data-value="3">3 дн</div>
                 </div>
-                <div class="category-info">
-                    <div><div class="category-name">${cat.name}</div><div class="category-description">${cat.description || ''}</div></div>
-                    <div class="category-price">
-                        ${state.projectType === 'ready' && !cat.noDiscount && cat.basePrice > price ? `<span class="original">${cat.basePrice} руб </span>` : ''}
-                        ${price} руб
+            </div>
+            <div class="config-group">
+                <div class="config-title">Эксклюзивные права на использование</div>
+                <div class="toggle-group">
+                    <div class="toggle-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="exclusiveToggle" onchange="toggleExclusive(this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">ДА (+60% к стоимости)</span>
                     </div>
-                    ${cat.noDiscount ? `<div class="budget-badge">Без скидки</div>` : ''}
                 </div>
-            `;
-            div.onclick = () => {
-                document.querySelectorAll('.category-card').forEach(el => el.classList.remove('selected'));
-                div.classList.add('selected');
-                state.selectedGender = gender;
-                state.selectedCategory = cat.id;
-                document.getElementById('next2').disabled = false;
-            };
-            container.appendChild(div);
-        });
-    }
-    function goToModelsScreen() {
-        if (!state.selectedGender || !state.selectedCategory) {
-            showNotification('Сначала выберите категорию', true);
-            return;
-        }
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step2_1').classList.add('active');
-        const category = categoriesConfig[state.selectedGender]?.find(c => c.id === state.selectedCategory);
-        document.getElementById('modelsTitle').textContent = `Выберите модель: ${category?.name || ''}`;
-        renderModels();
-        updateProgressBar(3);
-    }
-    function backToCategories() {
-        state.selectedModel = null;
-        document.getElementById('step2_1').classList.remove('active');
-        document.getElementById('step2').classList.add('active');
-        document.getElementById('next2_1').disabled = true;
-        document.getElementById('photoUploadSection').style.display = 'none';
-        updateProgressBar(2);
-    }
-    function renderModels() {
-        const modelsGrid = document.getElementById('modelsGrid');
-        const individualContainer = document.getElementById('individualModelContainer');
-        modelsGrid.style.display = 'none';
-        individualContainer.style.display = 'none';
-        const category = categoriesConfig[state.selectedGender]?.find(c => c.id === state.selectedCategory);
-        if (state.projectType === 'individual') {
-            individualContainer.style.display = 'block';
-            document.getElementById('individualModelImage').src = category?.imageUrl || '';
-            document.getElementById('individualModelName').textContent = `${state.selectedGender === 'male' ? 'Мужская' : 'Женская'} индивидуальная модель: ${category?.name || ''}`;
-            state.selectedModel = `individual_${state.selectedGender}_${state.selectedCategory}`;
-            document.getElementById('next2_1').disabled = false;
-            document.getElementById('photoUploadSection').style.display = 'block';
-            updateHeightOptions(state.selectedCategory);
-            return;
-        }
-        modelsGrid.style.display = 'grid';
-        modelsGrid.innerHTML = '';
-        const models = getAvailableModels();
-        if (!models.length) {
-            modelsGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#7f8c8d;">Нет моделей</div>';
-            return;
-        }
-        models.forEach(model => {
-            const div = document.createElement('div');
-            div.className = 'model-card';
-            div.dataset.modelId = model.id;
-            div.innerHTML = `
-                <div class="model-image">
-                    <img src="${model.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkQiLz48dGV4dCB4PSI1MCIgeT0iNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Модель</dGV4dD48L3N2Zz4='}" alt="${model.name}" loading="lazy">
+            </div>
+            <div class="config-group">
+                <div class="config-title">Печать модели</div>
+                <div class="toggle-group">
+                    <div class="toggle-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="printingToggle" onchange="togglePrinting(this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">ДА (срок +14 дн)</span>
+                    </div>
                 </div>
-                <div class="model-info">
-                    <div class="model-name">${model.name}</div>
-                    <div class="model-style">${getStyleName(model.style)}</div>
+                <div id="printingPrice" style="color: #3498db; font-size: 16px; margin-top: 10px; display: none;">
+                    Стоимость: <span id="printingCost">0</span> руб
                 </div>
-            `;
-            div.onclick = () => {
-                document.querySelectorAll('.model-card').forEach(el => el.classList.remove('selected'));
-                div.classList.add('selected');
-                state.selectedModel = model.id;
-                document.getElementById('next2_1').disabled = false;
-                document.getElementById('photoUploadSection').style.display = 'block';
-                updateHeightOptions(state.selectedCategory);
-            };
-            modelsGrid.appendChild(div);
-        });
-    }
-    function getStyleName(style) {
-        const map = {
-            neutral: 'Нейтральный', business: 'Деловой', free: 'Свободный',
-            modern: 'Модерн', classic: 'Классика', head: 'Бюджетный',
-            hero: 'Геройский', casual: 'Повседневный'
+            </div>
+            <div class="config-group">
+                <div class="config-title">Покраска модели</div>
+                <div class="toggle-group">
+                    <div class="toggle-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="paintingToggle" onchange="togglePainting(this.checked)" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">ДА (срок +14 дн)</span>
+                    </div>
+                </div>
+                <div id="paintingPrice" style="color: #3498db; font-size: 16px; margin-top: 10px; display: none;">
+                    Стоимость: <span id="paintingCost">0</span> руб
+                </div>
+            </div>
+        </div>
+        <div class="summary-box">
+            <div class="summary-price"><span id="totalPrice">0</span> ₽</div>
+            <div class="summary-days">Итоговый срок: <span id="finalDays">14</span> дней</div>
+        </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Назад</button>
+            <button class="btn" onclick="nextStep(4)"><i class="fas fa-shopping-cart"></i> Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Экран 4: Заказ -->
+    <div id="step4" class="screen">
+        <div class="screen-title">Ваш заказ</div>
+        <div class="config-section">
+            <div class="config-group">
+                <div class="config-title">Информация о заказе</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div><strong>Тип модели:</strong><br><span id="sumType"> --- </span></div>
+                    <div><strong>Категория:</strong><br><span id="sumCategory"> --- </span></div>
+                    <div><strong>Модель:</strong><br><span id="sumModel"> --- </span></div>
+                    <div><strong>Высота:</strong><br><span id="sumHeight"> --- </span> см</div>
+                    <div><strong>Срок:</strong><br><span id="sumFinalDays"> --- </span> дней</div>
+                    <div><strong>Эксклюзив:</strong><br><span id="sumExcl">НЕТ</span></div>
+                    <div><strong>Печать:</strong><br><span id="sumPrint">НЕТ</span></div>
+                    <div><strong>Покраска:</strong><br><span id="sumPaint">НЕТ</span></div>
+                    <div><strong>Стоимость:</strong><br><span id="sumPrice" style="font-weight: 700; font-size: 22px; color: #2ecc71;">0</span> ₽</div>
+                </div>
+            </div>
+            <div class="config-group">
+                <div class="config-title">Контактная информация</div>
+                <p style="color: #7f8c8d; margin-bottom: 25px;">
+                    Для оформления заказа заполните анкету. Продолжая вы соглашаетесь на обработку персональных данных
+                </p>
+                <div class="form-group">
+                    <label class="form-label">Введите ваше имя</label>
+                    <input type="text" class="form-input" id="name" placeholder="Иван Иванов">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Введите ваш WhatsApp / Telegram</label>
+                    <input type="text" class="form-input" id="contact" placeholder="@username или +79123456789">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Комментарий к заказу (необязательно)</label>
+                    <textarea class="form-input" id="comment" rows="3" placeholder="Дополнительные пожелания..."></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agree" style="width: 20px; height: 20px;">
+                    <label for="agree">Согласен на обработку персональных данных</label>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <button class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Назад</button>
+            <button class="btn btn-success" onclick="submitOrderFromForm()" id="submitOrder"><i class="fas fa-check-circle"></i> Оформить заказ</button>
+        </div>
+    </div>
+
+    <!-- Экран 5: Договор -->
+    <div id="contractScreen" class="screen"></div>
+
+    <!-- Подключение модулей -->
+    <script src="config.js"></script>
+    <script src="gsheet.js"></script>
+    <script src="pricing.js"></script>
+    <script src="ui.js"></script>
+    <script src="telegram.js"></script>
+    <script src="contract.js"></script>
+
+    <script>
+        let cachedData = null;
+        let currentState = {
+            projectType: null,
+            selectedGender: null,
+            selectedCategory: null,
+            selectedModel: null,
+            uploadedPhotos: [],
+            height: '15',
+            baseDays: '14',
+            exclusive: false,
+            printing: false,
+            painting: false,
+            customerName: '',
+            customerContact: '',
+            comment: ''
         };
-        return map[style] || 'Стандарт';
-    }
-    function handlePhotoUpload(event) {
-        const files = Array.from(event.target.files);
-        if (!files.length) return;
-        if (state.uploadedPhotos.length + files.length > 5) {
-            alert('Можно загрузить не более 5 фотографий.');
-            return;
-        }
-        for (const file of files) {
-            if (!file.type.match('image.*')) {
-                alert('Загрузите только изображения (JPG, PNG).');
-                return;
-            }
-            if (file.size > 5 * 1024 * 1024) {
-                alert('Файл ' + file.name + ' больше 5 МБ.');
-                return;
-            }
-        }
-        const promises = files.map(file => {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = e => resolve(e.target.result);
-                reader.readAsDataURL(file);
-            });
-        });
-        Promise.all(promises).then(results => {
-            state.uploadedPhotos = [...state.uploadedPhotos, ...results];
-            renderPhotoPreview();
-        });
-    }
-    function removePhoto(index) {
-        state.uploadedPhotos.splice(index, 1);
-        renderPhotoPreview();
-    }
-    function renderPhotoPreview() {
-        const preview = document.getElementById('photoPreview');
-        if (state.uploadedPhotos.length === 0) {
-            preview.innerHTML = '';
-            return;
-        }
-        preview.innerHTML = state.uploadedPhotos.map((photo, index) => `
-            <div class="preview-photo-item">
-                <img src="${photo}" alt="Фото ${index + 1}">
-                <button class="remove-photo-btn" onclick="removePhoto(${index})">
-                    &times;
-                </button>
-            </div>
-        `).join('');
-    }
-    function updateProgressBar(step) {
-        document.querySelectorAll('.progress-step').forEach((el, i) => {
-            el.classList.toggle('active', i < step);
-        });
-    }
-    function nextStep(step) {
-        currentStep = step;
-        document.querySelector('.screen.active').classList.remove('active');
-        if (step === 2) { document.getElementById('step2').classList.add('active'); renderCategories(); updateProgressBar(2); }
-        else if (step === 3) { document.getElementById('step3').classList.add('active'); updateProgressBar(4); }
-        else if (step === 4) { document.getElementById('step4').classList.add('active'); updateSummary(); updateProgressBar(5); }
-    }
-    function prevStep(step) {
-        currentStep = step;
-        document.querySelector('.screen.active').classList.remove('active');
-        if (step === 1) { document.getElementById('step1').classList.add('active'); updateProgressBar(1); }
-        else if (step === 2) { document.getElementById('step2').classList.add('active'); renderCategories(); updateProgressBar(2); }
-        else if (step === 3) { document.getElementById('step3').classList.add('active'); updateProgressBar(4); }
-    }
-    function updateSummary() {
-        const price = calculatePrice();
-        const finalDays = calculateFinalDays();
-        const typeName = state.projectType === 'individual' ? 'Индивидуальная модель (стандартная цена)' : 'Готовая модель (скидка 50%)';
-        const category = categoriesConfig[state.selectedGender]?.find(c => c.id === state.selectedCategory);
-        let modelName = ' — ';
-        if (state.projectType === 'individual') {
-            modelName = 'Индивидуальная модель';
-        } else {
-            const model = getAvailableModels().find(m => m.id === state.selectedModel);
-            modelName = model?.name || ' — ';
-        }
-        document.getElementById('sumType').textContent = typeName;
-        document.getElementById('sumCategory').textContent = category?.name || ' — ';
-        document.getElementById('sumModel').textContent = modelName;
-        document.getElementById('sumHeight').textContent = state.height;
-        document.getElementById('sumFinalDays').textContent = finalDays;
-        document.getElementById('sumExcl').textContent = state.exclusive ? 'ДА' : 'НЕТ';
-        document.getElementById('sumPrint').textContent = state.printing ? 'ДА' : 'НЕТ';
-        document.getElementById('sumPaint').textContent = state.painting ? 'ДА' : 'НЕТ';
-        document.getElementById('sumPrice').textContent = price.toLocaleString();
-    }
-    function setupConfigOptions() {
-        document.querySelectorAll('#heightGroup .option-btn').forEach(btn => {
-            btn.onclick = () => {
-                if (btn.classList.contains('disabled')) return;
-                document.querySelectorAll('#heightGroup .option-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                state.height = btn.dataset.value;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                cachedData = await loadAllData();
+                setupConfigOptions();
                 updatePrice();
-            };
-        });
-        document.querySelectorAll('#daysGroup .option-btn').forEach(btn => {
-            btn.onclick = () => {
-                document.querySelectorAll('#daysGroup .option-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                state.baseDays = btn.dataset.value;
-                updatePrice();
-            };
-            if (btn.dataset.value === state.baseDays) btn.classList.add('active');
-        });
-        const activeBtn = document.querySelector(`#heightGroup .option-btn[data-value="${state.height}"]`);
-        if (activeBtn) activeBtn.classList.add('active');
-    }
-    function updateHeightOptions(catId) {
-        const isBudget = catId === 'budget';
-        const isBustMini = ['bust', 'mini', 'budget'].includes(catId);
-        document.querySelectorAll('#heightGroup .option-btn').forEach(btn => {
-            const h = btn.dataset.value;
-            if (isBudget) {
-                if (h !== '10') {
-                    btn.classList.add('disabled');
-                    if (btn.classList.contains('active')) {
-                        btn.classList.remove('active');
-                        state.height = '10';
-                        document.querySelector(`#heightGroup .option-btn[data-value="10"]`).classList.add('active');
-                    }
-                } else btn.classList.remove('disabled');
-            } else if (isBustMini && (h === '20' || h === '25')) {
-                btn.classList.add('disabled');
-                if (btn.classList.contains('active')) {
-                    btn.classList.remove('active');
-                    state.height = '18';
-                    document.querySelector(`#heightGroup .option-btn[data-value="18"]`).classList.add('active');
-                }
-            } else {
-                btn.classList.remove('disabled');
+                showNotification('Данные успешно загружены!', false);
+            } catch (e) {
+                showNotification('Ошибка загрузки Google Sheets', true);
+                console.error(e);
             }
         });
-        updatePrice();
-    }
-    function toggleExclusive(checked) { state.exclusive = checked; updatePrice(); }
-    function togglePrinting(checked) {
-        state.printing = checked;
-        const pt = document.getElementById('paintingToggle');
-        if (checked) {
-            pt.disabled = false;
-            document.getElementById('printingPrice').style.display = 'block';
-        } else {
-            pt.disabled = true;
-            pt.checked = false;
-            state.painting = false;
-            document.getElementById('printingPrice').style.display = 'none';
-            document.getElementById('paintingPrice').style.display = 'none';
+
+        function showNotification(message, isError = false) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${isError ? 'error' : ''}`;
+            notification.innerHTML = `
+                <i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
-        updatePrice();
-    }
-    function togglePainting(checked) { state.painting = checked; document.getElementById('paintingPrice').style.display = checked ? 'block' : 'none'; updatePrice(); }
-    // === Расчет цены (используется на экране настройки и в договоре) ===
-    function calculatePrice() {
-        if (!state.selectedCategory || !state.selectedGender) return 0;
-        const cat = categoriesConfig[state.selectedGender].find(c => c.id === state.selectedCategory);
-        if (!cat || typeof cat.basePrice !== 'number') return 0;
-        let base = cat.basePrice;
-        if (state.projectType === 'ready' && !cat.noDiscount) base = Math.round(base * 0.5);
-        let total = base;
-        if (['15', '18'].includes(state.height)) total = Math.round(total * 1.15);
-        else if (['20', '25'].includes(state.height)) total = Math.round(total * 1.25);
-        if (state.baseDays === '7') total = Math.round(total * 1.1);
-        else if (state.baseDays === '3') total = Math.round(total * 1.2);
-        if (state.exclusive) total = Math.round(total * 1.6);
-        let pc = 0, pc2 = 0;
-        if (state.printing) {
-            pc = state.height === '10' ? 2500 : (['15','18'].includes(state.height) ? 4000 : 5500);
-            total += pc;
-            document.getElementById('printingCost').textContent = pc;
-        }
-        if (state.painting) {
-            pc2 = state.height === '10' ? 7000 : (['15','18'].includes(state.height) ? 10000 : 12000);
-            total += pc2;
-            document.getElementById('paintingCost').textContent = pc2;
-        }
-        return total;
-    }
-    function calculateFinalDays() {
-        let days = parseInt(state.baseDays) || 14;
-        if (state.printing) days += 14;
-        if (state.painting) days += 14;
-        return days;
-    }
-    function updatePrice() {
-        document.getElementById('totalPrice').textContent = calculatePrice().toLocaleString();
-        document.getElementById('finalDays').textContent = calculateFinalDays();
-    }
-    function submitOrderFromForm() {
-        const name = document.getElementById('name').value.trim();
-        const contact = document.getElementById('contact').value.trim();
-        const agree = document.getElementById('agree').checked;
-        const comment = document.getElementById('comment').value.trim();
-        window.submitOrder(name, contact, comment, agree, state.selectedModel, state.uploadedPhotos);
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-        loadConfig();
-        setupConfigOptions();
-        initOrderHandler(state, categoriesConfig, modelsConfig);
-    });
-</script>
+    </script>
 </body>
 </html>
